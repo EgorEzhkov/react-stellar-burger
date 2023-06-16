@@ -12,22 +12,28 @@ class AppHeader extends React.Component {
     return (
       <header className={styles.header}>
         <div className={styles.div}>
-          <BurgerIcon />
-          <p style={{ marginLeft: 10 }} className="text text_type_main-small">
-            Конструктор
+          <a href="#" className={styles.a}>
+            <BurgerIcon type="primary" />
+            <p style={{ marginLeft: 10 }} className="text text_type_main-small">
+              Конструктор
+            </p>
+          </a>
+          <a href="#" className={styles.a}>
+            <ListIcon type="primary" />
+            <p style={{ marginLeft: 10 }} className="text text_type_main-small">
+              Конструктор
+            </p>
+          </a>
+        </div>
+        <div className={styles.logo}>
+          <Logo />
+        </div>
+        <a href="#" className={styles.a}>
+          <p style={{ marginRight: 10 }} className="text text_type_main-small">
+            Личный кабинет
           </p>
-        </div>
-        <div className={styles.div}>
-          <ListIcon />
-          <p style={{ marginLeft: 10 }} className="text text_type_main-small">
-            Конструктор
-          </p>
-        </div>
-        <Logo className={styles.logo} />
-        <div className={styles.div}>
-          <p className="text text_type_main-small">Профиль</p>
-          <ProfileIcon />
-        </div>
+          <ProfileIcon type="primary" />
+        </a>
       </header>
     );
   }

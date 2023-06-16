@@ -5,3 +5,13 @@
   background-color: #131316;
   color: #f2f2f3;
 }
+
+.div {
+  margin: 0 0 40px 0;
+}
+
+.main {
+  padding: 0 320px 0 320px;
+  display: flex;
+  flex-direction: row;
+}
