@@ -2,6 +2,7 @@ import styles from "./app.module.css";
 import { data } from "../../utils/data";
 import AppHeader from "../app-header/appHeader";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
+import BurgerConstructor from "../burgerConstructor/burgerConstructor";
 
 function App() {
   return (
@@ -13,10 +14,11 @@ function App() {
         <header><AppHeader /></header>
         <main className={styles.main}>
           <div className={styles.div}>
-            <BurgerIngredients/>
+            <BurgerIngredients data={data}/>
           </div>
-        
-          <div>fdsa</div>
+          <div>
+            <BurgerConstructor data={data}/>
+          </div>
         </main>
         
       </pre>

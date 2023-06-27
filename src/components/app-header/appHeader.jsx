@@ -14,14 +14,14 @@ class AppHeader extends React.Component {
         <div className={styles.div}>
           <a href="#" className={styles.a}>
             <BurgerIcon type="primary" />
-            <p style={{ marginLeft: 10 }} className="text text_type_main-small">
+            <p style={{ marginLeft: 10, color: 'white' }} className="text text_type_main-small">
               Конструктор
             </p>
           </a>
           <a href="#" className={styles.a}>
-            <ListIcon type="primary" />
+            <ListIcon type="secondary"/>
             <p style={{ marginLeft: 10 }} className="text text_type_main-small">
-              Конструктор
+              Лента заказов
             </p>
           </a>
         </div>
@@ -32,7 +32,7 @@ class AppHeader extends React.Component {
           <p style={{ marginRight: 10 }} className="text text_type_main-small">
             Личный кабинет
           </p>
-          <ProfileIcon type="primary" />
+          <ProfileIcon type="secondary" />
         </a>
       </header>
     );

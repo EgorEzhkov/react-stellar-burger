@@ -1,5 +1,4 @@
 import React from "react";
-import { data } from "../../utils/data";
 import {
   Tab,
   CurrencyIcon,
@@ -7,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerIngredients.module.css";
 
-function BurgerIngredients() {
+function BurgerIngredients({ data }) {
   const [current, setCurrent] = React.useState("Соусы");
   return (
     <>
@@ -70,14 +69,16 @@ function BurgerIngredients() {
   );
 }
 
+
 function list(el) {
   return (
     <React.Fragment key={el._id}>
       <li className={`${styles.listIngredients} ml-4 mr-6 mb-10 mt-0`}>
+          <Counter count={1} size="default" extraClass="m-1"/>
         <img src={el.image} alt={el.name} className="ml-0 mr-0 mb-1 mt-0" />
         <p className={`text text_type_digits-default mb-1 ${styles.price}`}>
           {el.price}
-          <CurrencyIcon type="primary"/>
+          <CurrencyIcon type="primary" />
         </p>
         <p className={`text text_type_main-small ${styles.name}`}>{el.name}</p>
       </li>
