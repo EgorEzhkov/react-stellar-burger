@@ -11,16 +11,19 @@ class AppHeader extends React.Component {
   render() {
     return (
       <header className={styles.header}>
-        <div className={styles.div}>
-          <a href="#" className={styles.a}>
+        <div className={styles.container}>
+          <a href="#" className={`mt-4 mb-4 mr-2 pt-4 pb-4 ${styles.element}`}>
             <BurgerIcon type="primary" />
-            <p style={{ marginLeft: 10, color: 'white' }} className="text text_type_main-small">
+            <p
+              style={{ color: "white" }}
+              className="text text_type_main-default ml-2 mr-5"
+            >
               Конструктор
             </p>
           </a>
-          <a href="#" className={styles.a}>
-            <ListIcon type="secondary"/>
-            <p style={{ marginLeft: 10 }} className="text text_type_main-small">
+          <a href="#" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
+            <ListIcon type="secondary" />
+            <p className="text text_type_main-default ml-2 mr-5">
               Лента заказов
             </p>
           </a>
@@ -28,11 +31,14 @@ class AppHeader extends React.Component {
         <div className={styles.logo}>
           <Logo />
         </div>
-        <a href="#" className={styles.a}>
-          <p style={{ marginRight: 10 }} className="text text_type_main-small">
+        <a href="#" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
+          <ProfileIcon type="secondary" />
+          <p
+            style={{ marginRight: 10 }}
+            className="text text_type_main-default ml-2 mr-5"
+          >
             Личный кабинет
           </p>
-          <ProfileIcon type="secondary" />
         </a>
       </header>
     );

@@ -1,14 +1,13 @@
-import React from "react";
 import {
-  DeleteIcon,
   CurrencyIcon,
   ConstructorElement,
   Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
-
-function BurgerConstructor({ data }) {
+import { ingredientPropType } from "../../utils/prop-types";
+import PropTypes from "prop-types";
+function BurgerConstructor({ data, handlePopupState }) {
   const totalPrice = data.reduce(
     (accumulator, item) => accumulator + item.price,
     0
@@ -16,7 +15,7 @@ function BurgerConstructor({ data }) {
   return (
     <>
       <div
-        className={`mt-25 mb-10 ml-10 ${styles.div}`}
+        className={`mt-25 mb-10 ml-10 ${styles.container}`}
         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
       >
         <div style={{ display: "flex", whiteSpace: "pre-wrap" }}>
@@ -58,7 +57,12 @@ function BurgerConstructor({ data }) {
           {totalPrice}
           <CurrencyIcon />
         </p>
-        <Button htmlType="button" type="primary" size="large">
+        <Button
+          onClick={() => handlePopupState(true)}
+          htmlType="button"
+          type="primary"
+          size="large"
+        >
           Нажми на меня
         </Button>
       </div>
@@ -82,5 +86,10 @@ function ConstructorList(el) {
     );
   }
 }
+
+BurgerConstructor.propTypes = {
+  handlePopupState: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(ingredientPropType),
+};
 
 export default BurgerConstructor;
