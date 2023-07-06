@@ -1,0 +1,31 @@
+.image {
+  width: 80px;
+  height: 40px;
+}
+
+.li {
+  list-style: none;
+}
+
+.listConsctructor {
+  height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+}
+
+.finalPrice {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.constructorElement {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.container {
+  align-items: center;
+}
