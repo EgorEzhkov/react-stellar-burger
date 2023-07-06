@@ -5,9 +5,8 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import PropTypes from "prop-types";
 
+const modalPortal = document.getElementById("react-modals");
 export default function Modal({ children, handlePopupState }) {
-  const modalPortal = document.getElementById("react-modals");
-
   React.useEffect(() => {
     const handlePopupClose = (evt) => {
       if (evt.key === "Escape") {

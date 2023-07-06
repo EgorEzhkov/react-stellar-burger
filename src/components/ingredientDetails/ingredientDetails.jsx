@@ -48,5 +48,5 @@ export default function ingredientDetails({ data }) {
 }
 
 ingredientDetails.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType),
+  data: PropTypes.arrayOf(ingredientPropType).isRequired,
 };

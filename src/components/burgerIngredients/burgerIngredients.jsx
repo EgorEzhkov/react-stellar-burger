@@ -54,31 +54,13 @@ function BurgerIngredients({ data, setDataIngredient, setPopupOpen }) {
           Соберите бургер
         </h1>
         <div style={{ display: "flex" }} className="mb-10">
-          <Tab
-            value="Булки"
-            active={current === "Булки"}
-            onClick={() => {
-              setTab("Булки");
-            }}
-          >
+          <Tab value="Булки" active={current === "Булки"} onClick={setTab}>
             Булки
           </Tab>
-          <Tab
-            value="Соусы"
-            active={current === "Соусы"}
-            onClick={() => {
-              setTab("Соусы");
-            }}
-          >
+          <Tab value="Соусы" active={current === "Соусы"} onClick={setTab}>
             Соусы
           </Tab>
-          <Tab
-            value="Начинки"
-            active={current === "Начинки"}
-            onClick={() => {
-              setTab("Начинки");
-            }}
-          >
+          <Tab value="Начинки" active={current === "Начинки"} onClick={setTab}>
             Начинки
           </Tab>
         </div>
