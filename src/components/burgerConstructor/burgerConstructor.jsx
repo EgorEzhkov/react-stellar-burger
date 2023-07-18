@@ -7,11 +7,21 @@ import {
 import styles from "./burgerConstructor.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-function BurgerConstructor({ data, handlePopupState }) {
-  const totalPrice = data.reduce(
-    (accumulator, item) => accumulator + item.price,
-    0
-  );
+import IngredientsContext from "../../services/ingredientsContext";
+import { useContext } from "react";
+import ConstructorContext from "../../services/constructorContext";
+
+function BurgerConstructor({ handlePopupState }) {
+  const constructorContext = useContext(ConstructorContext);
+  const totalPrice = constructorContext.reduce(function (accumulator, item) {
+    if (item.type === "bun") {
+      return item.price * 2 + accumulator;
+    } else {
+      return item.price + accumulator;
+    }
+  }, 0);
+  let chosenBun = constructorContext.find((item) => item.type === "bun");
+  console.log(constructorContext);
   return (
     <>
       <div
@@ -19,13 +29,17 @@ function BurgerConstructor({ data, handlePopupState }) {
         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
       >
         <div style={{ display: "flex", whiteSpace: "pre-wrap" }}>
-          <ConstructorElement
-            type="top"
-            text={`${data[0].name} (верх)`}
-            price={data[0].price}
-            thumbnail={data[0].image}
-            isLocked={true}
-          />
+          {chosenBun ? (
+            <ConstructorElement
+              type="top"
+              text={`${chosenBun.name} (верх)`}
+              price={chosenBun.price}
+              thumbnail={chosenBun.image}
+              isLocked={true}
+            />
+          ) : (
+            <p>Выбери булку</p>
+          )}
         </div>
 
         <ul
@@ -38,19 +52,28 @@ function BurgerConstructor({ data, handlePopupState }) {
           }}
           className={`custom-scroll ${styles.listConsctructor}`}
         >
-          {data.map((el) => {
-            return ConstructorList(el);
-          })}
+          {constructorContext.length > 0 ? (
+            constructorContext.map((el, index) => {
+              return ConstructorList(el, index);
+            })
+          ) : (
+            <p>Выбери ингредиенты</p>
+          )}
         </ul>
-        <div style={{ display: "flex", whiteSpace: "pre-wrap" }}>
-          <ConstructorElement
-            type="bottom"
-            text={`${data[0].name} (низ)`}
-            price={data[0].price}
-            thumbnail={data[0].image}
-            isLocked={true}
-          />
-        </div>
+
+        {chosenBun ? (
+          <div style={{ display: "flex", whiteSpace: "pre-wrap" }}>
+            <ConstructorElement
+              type="bottom"
+              text={`${chosenBun.name} (низ)`}
+              price={chosenBun.price}
+              thumbnail={chosenBun.image}
+              isLocked={true}
+            />
+          </div>
+        ) : (
+          <p>Выбери булку</p>
+        )}
       </div>
       <div className={styles.finalPrice}>
         <p className="text text_type_digits-medium mr-10">
@@ -70,10 +93,10 @@ function BurgerConstructor({ data, handlePopupState }) {
   );
 }
 
-function ConstructorList(el) {
+function ConstructorList(el, index) {
   if (el.type !== "bun") {
     return (
-      <li key={el._id} className={`${styles.li}`}>
+      <li key={index} className={`${styles.li}`}>
         <div className={styles.constructorElement}>
           <DragIcon type="primary" />
           <ConstructorElement
