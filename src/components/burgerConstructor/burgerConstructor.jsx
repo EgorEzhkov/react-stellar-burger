@@ -7,11 +7,10 @@ import {
 import styles from "./burgerConstructor.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-import IngredientsContext from "../../services/ingredientsContext";
 import { useContext } from "react";
 import ConstructorContext from "../../services/constructorContext";
-
-function BurgerConstructor({ handlePopupState }) {
+import { apiOrder } from "../../utils/api";
+function BurgerConstructor({ handlePopupState, setOrderContext }) {
   const constructorContext = useContext(ConstructorContext);
   const totalPrice = constructorContext.reduce(function (accumulator, item) {
     if (item.type === "bun") {
@@ -21,7 +20,17 @@ function BurgerConstructor({ handlePopupState }) {
     }
   }, 0);
   let chosenBun = constructorContext.find((item) => item.type === "bun");
-  console.log(constructorContext);
+
+  function apiOrderData(handlePopupState, constructorContext) {
+    handlePopupState(true);
+    apiOrder(constructorContext)
+      .then((data) => setOrderContext(data.order.number))
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {});
+  }
+
   return (
     <>
       <div
@@ -81,7 +90,7 @@ function BurgerConstructor({ handlePopupState }) {
           <CurrencyIcon />
         </p>
         <Button
-          onClick={() => handlePopupState(true)}
+          onClick={() => apiOrderData(handlePopupState, constructorContext)}
           htmlType="button"
           type="primary"
           size="large"
@@ -112,7 +121,7 @@ function ConstructorList(el, index) {
 
 BurgerConstructor.propTypes = {
   handlePopupState: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(ingredientPropType),
+  setOrderContext: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;
