@@ -7,22 +7,30 @@ import {
 import styles from "./burgerIngredients.module.css";
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
-
-function BurgerIngredients({ data, setDataIngredient, setPopupOpen }) {
+import { IngredientsContext } from "../../services/ingredientsContext";
+import {useContext} from 'react'
+import ConstructorContext from "../../services/constructorContext";
+function BurgerIngredients({ data, setDataIngredient, setPopupOpen, setConstructorContext }) {
+  const constructorContext = useContext(ConstructorContext)
   const [current, setCurrent] = React.useState("Булки");
-
   const setTab = (tab) => {
     setCurrent(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
+
   const findIngredient = (evt) => {
     const element = evt.currentTarget.id;
     const dataElement = data.find((data) => data._id === element);
-    console.log(dataElement.image);
-    setDataIngredient(dataElement);
-    setPopupOpen(true);
+    setConstructorContext([...constructorContext, dataElement]);
+    if (dataElement.type === 'bun') {
+      dataElement.__v =+ 2
+    } else {
+      dataElement.__v = dataElement.__v + 1
+    }
+    
+    // setPopupOpen(true);
   };
 
   function list(el) {
@@ -33,7 +41,7 @@ function BurgerIngredients({ data, setDataIngredient, setPopupOpen }) {
           id={el._id}
           className={`${styles.listIngredients} ml-4 mr-6 mb-10 mt-0`}
         >
-          <Counter count={1} size="default" extraClass="m-1" />
+          <Counter count={el.__v} size="default" extraClass="m-1" />
           <img src={el.image} alt={el.name} className="ml-0 mr-0 mb-1 mt-0" />
           <p className={`text text_type_digits-default mb-1 ${styles.price}`}>
             {el.price}

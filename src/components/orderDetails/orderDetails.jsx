@@ -1,9 +1,10 @@
 import style from "./orderDetails.module.css";
 import React from "react";
 import imgDone from "../../images/done.svg";
-import PropTypes from 'prop-types'
-
-export default function OrderDetails({ orderData }) {
+import OrderContext from "../../services/orderContext";
+import { useContext } from "react";
+export default function OrderDetails() {
+  const orderData = useContext(OrderContext);
   return (
     <React.Fragment>
       <div className={style.container}>
@@ -25,8 +26,3 @@ export default function OrderDetails({ orderData }) {
     </React.Fragment>
   );
 }
-
-OrderDetails.propTypes = {
-  orderData: PropTypes.string.isRequired
-}
-
