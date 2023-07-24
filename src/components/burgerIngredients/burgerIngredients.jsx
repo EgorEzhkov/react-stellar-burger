@@ -8,10 +8,18 @@ import styles from "./burgerIngredients.module.css";
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
 import { IngredientsContext } from "../../services/ingredientsContext";
-import {useContext} from 'react'
-import ConstructorContext from "../../services/constructorContext";
-function BurgerIngredients({ data, setDataIngredient, setPopupOpen, setConstructorContext }) {
-  const constructorContext = useContext(ConstructorContext)
+import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredientsData";
+import { store } from "../../services/store";
+import {postIngredient} from '../../services/actions/constructorIngredientsData'
+function BurgerIngredients({
+  setDataIngredient,
+  setPopupOpen,
+}) {
+  const data = useSelector(store => store.ingredients.ingredients)
+  const co = useSelector(store => store.constructor)
+  const dispatch = useDispatch()
   const [current, setCurrent] = React.useState("Булки");
   const setTab = (tab) => {
     setCurrent(tab);
@@ -19,17 +27,19 @@ function BurgerIngredients({ data, setDataIngredient, setPopupOpen, setConstruct
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-
   const findIngredient = (evt) => {
     const element = evt.currentTarget.id;
     const dataElement = data.find((data) => data._id === element);
-    setConstructorContext([...constructorContext, dataElement]);
-    if (dataElement.type === 'bun') {
-      dataElement.__v =+ 2
+    console.log(dataElement)
+    dispatch(postIngredient(dataElement))
+    console.log(co)
+
+    if (dataElement.type === "bun") {
+      dataElement.__v = +2;
     } else {
-      dataElement.__v = dataElement.__v + 1
+      dataElement.__v = dataElement.__v + 1;
     }
-    
+
     // setPopupOpen(true);
   };
 

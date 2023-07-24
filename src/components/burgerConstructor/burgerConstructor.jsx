@@ -10,7 +10,10 @@ import PropTypes from "prop-types";
 import { useContext } from "react";
 import ConstructorContext from "../../services/constructorContext";
 import { apiOrder } from "../../utils/api";
+import {useSelector} from 'react-redux'
 function BurgerConstructor({ handlePopupState, setOrderContext }) {
+
+  
   const constructorContext = useContext(ConstructorContext);
   const totalPrice = constructorContext.reduce(function (accumulator, item) {
     if (item.type === "bun") {
