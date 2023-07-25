@@ -27,11 +27,13 @@ export const ingredientsDataReducer = (store = initialState, action) => {
     }
     case GET_INGREDIENTS_FAILED: {
       return {
-        ...store, ingredientsFailed: true, ingredientsRequest: false
-      }
+        ...store,
+        ingredientsFailed: true,
+        ingredientsRequest: false,
+      };
     }
     default: {
-      return store
+      return store;
     }
   }
 };

@@ -1,7 +1,7 @@
 import style from "./ingredientDetails.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
-export default function ingredientDetails({ data }) {
+import { useSelector } from "react-redux";
+export default function IngredientDetails() {
+  const data = useSelector((store) => store.infoIngredient.infoIngredient);
   return (
     <>
       <div className={style.container}>
@@ -46,7 +46,3 @@ export default function ingredientDetails({ data }) {
     </>
   );
 }
-
-ingredientDetails.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType).isRequired,
-};

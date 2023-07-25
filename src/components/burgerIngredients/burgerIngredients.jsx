@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Tab,
   CurrencyIcon,
@@ -6,20 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerIngredients.module.css";
 import PropTypes from "prop-types";
-import { ingredientPropType } from "../../utils/prop-types";
-import { IngredientsContext } from "../../services/ingredientsContext";
-import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../../services/actions/ingredientsData";
-import { store } from "../../services/store";
-import {postIngredient} from '../../services/actions/constructorIngredientsData'
-function BurgerIngredients({
-  setDataIngredient,
-  setPopupOpen,
-}) {
-  const data = useSelector(store => store.ingredients.ingredients)
-  const co = useSelector(store => store.constructor)
-  const dispatch = useDispatch()
+import { postIngredient } from "../../services/actions/constructorIngredientsData";
+import { getInfoIngredient } from "../../services/actions/infoIngredientData";
+import { useInView } from "react-intersection-observer";
+function BurgerIngredients({ setPopupOpen }) {
+  const data = useSelector((store) => store.ingredients.ingredients);
+  const dispatch = useDispatch();
+
   const [current, setCurrent] = React.useState("Булки");
   const setTab = (tab) => {
     setCurrent(tab);
@@ -30,34 +24,56 @@ function BurgerIngredients({
   const findIngredient = (evt) => {
     const element = evt.currentTarget.id;
     const dataElement = data.find((data) => data._id === element);
-    console.log(dataElement)
-    dispatch(postIngredient(dataElement))
-    console.log(co)
+    dispatch(getInfoIngredient(dataElement));
+    setPopupOpen(true);
+  };
 
+  const addIngredientToConstructor = (evt) => {
+    const element = evt.currentTarget.id;
+    const dataElement = data.find((data) => data._id === element);
     if (dataElement.type === "bun") {
       dataElement.__v = +2;
     } else {
       dataElement.__v = dataElement.__v + 1;
     }
-
-    // setPopupOpen(true);
+    dispatch(postIngredient(dataElement));
   };
+
+  const [bunsRef, bunsInView] = useInView({ threshold: 0.3 });
+  const [sausesRef, sausesInView] = useInView({ threshold: 0.3 });
+  const [mainRef, mainInView] = useInView({ threshold: 0.3 });
+
+  useEffect(() => {
+    if (bunsInView) {
+      setCurrent("Булки");
+    } else if (sausesInView) {
+      setCurrent("Соусы");
+    } else if (mainInView) {
+      setCurrent("Начинки");
+    }
+  }, [bunsInView, sausesInView, mainInView]);
 
   function list(el) {
     return (
       <React.Fragment key={el._id}>
-        <li
-          onClick={findIngredient}
-          id={el._id}
-          className={`${styles.listIngredients} ml-4 mr-6 mb-10 mt-0`}
-        >
+        <li className={`${styles.listIngredients} ml-4 mr-6 mb-10 mt-0`}>
           <Counter count={el.__v} size="default" extraClass="m-1" />
-          <img src={el.image} alt={el.name} className="ml-0 mr-0 mb-1 mt-0" />
+          <img
+            id={el._id}
+            onClick={findIngredient}
+            src={el.image}
+            alt={el.name}
+            className="ml-0 mr-0 mb-1 mt-0"
+          />
           <p className={`text text_type_digits-default mb-1 ${styles.price}`}>
             {el.price}
             <CurrencyIcon type="primary" />
           </p>
-          <p className={`text text_type_main-default ${styles.name}`}>
+          <p
+            id={el._id}
+            onClick={addIngredientToConstructor}
+            className={`text text_type_main-default ${styles.name}`}
+          >
             {el.name}
           </p>
         </li>
@@ -87,7 +103,7 @@ function BurgerIngredients({
         <h2 id="Булки" style={{ marginTop: 0 }} className="mb-6">
           Булки
         </h2>
-        <div className={styles.typeIngredients}>
+        <div ref={bunsRef} className={styles.typeIngredients}>
           {data.map((el, index) => {
             if (el.type === "bun")
               return (
@@ -100,7 +116,7 @@ function BurgerIngredients({
         <h2 id="Соусы" style={{ marginTop: 0 }} className="mb-6">
           Соусы
         </h2>
-        <div className={styles.typeIngredients}>
+        <div ref={sausesRef} className={styles.typeIngredients}>
           {data.map((el, index) => {
             if (el.type === "sauce")
               return (
@@ -113,7 +129,7 @@ function BurgerIngredients({
         <h2 id="Начинки" style={{ marginTop: 0 }} className="mb-6">
           Начинки
         </h2>
-        <div className={styles.typeIngredients}>
+        <div ref={mainRef} className={styles.typeIngredients}>
           {data.map((el, index) => {
             if (el.type === "main")
               return (
@@ -129,9 +145,7 @@ function BurgerIngredients({
 }
 
 BurgerIngredients.propTypes = {
-  setDataIngredient: PropTypes.func.isRequired,
   setPopupOpen: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(ingredientPropType),
 };
 
 export default BurgerIngredients;

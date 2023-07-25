@@ -1,10 +1,10 @@
 import style from "./orderDetails.module.css";
 import React from "react";
 import imgDone from "../../images/done.svg";
-import OrderContext from "../../services/orderContext";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
+
 export default function OrderDetails() {
-  const orderData = useContext(OrderContext);
+  const orderData = useSelector((store) => store.orderData.orderNumber);
   return (
     <React.Fragment>
       <div className={style.container}>

@@ -5,34 +5,39 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import ConstructorContext from "../../services/constructorContext";
-import { apiOrder } from "../../utils/api";
-import {useSelector} from 'react-redux'
-function BurgerConstructor({ handlePopupState, setOrderContext }) {
-
-  
-  const constructorContext = useContext(ConstructorContext);
-  const totalPrice = constructorContext.reduce(function (accumulator, item) {
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getApiOrder } from "../../services/actions/orderDetailsData";
+function BurgerConstructor({ handlePopupState }) {
+  const dispatch = useDispatch();
+  const dataIngredient = useSelector(
+    (store) => store.dataConstructor.ingredients
+  );
+  const ingredientsData = useSelector((store) => store.ingredients.ingredients);
+  const totalPrice = dataIngredient.reduce(function (accumulator, item) {
     if (item.type === "bun") {
       return item.price * 2 + accumulator;
     } else {
       return item.price + accumulator;
     }
   }, 0);
-  let chosenBun = constructorContext.find((item) => item.type === "bun");
+  let chosenBun = dataIngredient.find((item) => item.type === "bun");
 
-  function apiOrderData(handlePopupState, constructorContext) {
+  function apiOrderData(handlePopupState, dataIngredient) {
     handlePopupState(true);
-    apiOrder(constructorContext)
-      .then((data) => setOrderContext(data.order.number))
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {});
+    dispatch(getApiOrder(dataIngredient));
   }
+
+  const [buttonState, setButtonState] = useState(false);
+
+  useEffect(() => {
+    if (dataIngredient.length > 0) {
+      setButtonState(false);
+    } else {
+      setButtonState(true);
+    }
+  }, [dataIngredient]);
 
   return (
     <>
@@ -64,8 +69,8 @@ function BurgerConstructor({ handlePopupState, setOrderContext }) {
           }}
           className={`custom-scroll ${styles.listConsctructor}`}
         >
-          {constructorContext.length > 0 ? (
-            constructorContext.map((el, index) => {
+          {dataIngredient.length > 0 ? (
+            dataIngredient.map((el, index) => {
               return ConstructorList(el, index);
             })
           ) : (
@@ -93,10 +98,11 @@ function BurgerConstructor({ handlePopupState, setOrderContext }) {
           <CurrencyIcon />
         </p>
         <Button
-          onClick={() => apiOrderData(handlePopupState, constructorContext)}
+          onClick={() => apiOrderData(handlePopupState, dataIngredient)}
           htmlType="button"
           type="primary"
           size="large"
+          disabled={buttonState}
         >
           Нажми на меня
         </Button>
@@ -124,7 +130,6 @@ function ConstructorList(el, index) {
 
 BurgerConstructor.propTypes = {
   handlePopupState: PropTypes.func.isRequired,
-  setOrderContext: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;
