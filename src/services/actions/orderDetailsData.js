@@ -22,6 +22,9 @@ export const getApiOrder = (ingredientsData) => {
       })
       .catch((err) => {
         console.log(err);
+        dispatch({
+          type: GET_ORDER_FAILED,
+        });
       });
   };
 };

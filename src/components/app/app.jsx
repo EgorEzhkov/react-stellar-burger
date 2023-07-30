@@ -1,5 +1,5 @@
 import styles from "./app.module.css";
-import AppHeader from "../app-header/appHeader";
+import AppHeader from "../appHeader/appHeader";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
 import BurgerConstructor from "../burgerConstructor/burgerConstructor";
 import Modal from "../modal/modal";
@@ -8,6 +8,8 @@ import OrderDetails from "../orderDetails/orderDetails";
 import IngredientDetails from "../ingredientDetails/ingredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState(false);
@@ -18,6 +20,7 @@ function App() {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
+
   const ingredientsRequest = useSelector(
     (store) => store.ingredients.ingredientsRequest
   );
@@ -38,14 +41,18 @@ function App() {
               <AppHeader />
             </header>
             <main className={styles.main}>
-              <div className={styles.div}>
-                <BurgerIngredients
-                  setPopupOpen={setIngredientDetailsPopupOpen}
-                />
-              </div>
-              <div>
-                <BurgerConstructor handlePopupState={setOrderDetalsPopupOpen} />
-              </div>
+              <DndProvider backend={HTML5Backend}>
+                <div className={styles.div}>
+                  <BurgerIngredients
+                    setPopupOpen={setIngredientDetailsPopupOpen}
+                  />
+                </div>
+                <div>
+                  <BurgerConstructor
+                    handlePopupState={setOrderDetalsPopupOpen}
+                  />
+                </div>
+              </DndProvider>
             </main>
             {orderDetalsPopupOpen && (
               <Modal handlePopupState={setOrderDetalsPopupOpen}>
