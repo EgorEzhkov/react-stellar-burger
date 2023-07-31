@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { DELETE_INFO_INGREDIENT } from "../../services/actions/infoIngredientData";
 
 function App() {
   const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState(false);
@@ -25,6 +26,15 @@ function App() {
     (store) => store.ingredients.ingredientsRequest
   );
 
+  const closeIngredientsPopup = () => {
+    setIngredientDetailsPopupOpen(false);
+    dispatch({ type: DELETE_INFO_INGREDIENT });
+  };
+
+  const closeOrderPopup = () => {
+    setOrderDetalsPopupOpen(false);
+  };
+
   return (
     <div className={styles.app}>
       <pre
@@ -37,9 +47,7 @@ function App() {
           <h1>Идет загрузка данных</h1>
         ) : (
           <>
-            <header>
-              <AppHeader />
-            </header>
+            <AppHeader />
             <main className={styles.main}>
               <DndProvider backend={HTML5Backend}>
                 <div className={styles.div}>
@@ -55,12 +63,12 @@ function App() {
               </DndProvider>
             </main>
             {orderDetalsPopupOpen && (
-              <Modal handlePopupState={setOrderDetalsPopupOpen}>
+              <Modal handlePopupClose={closeOrderPopup}>
                 <OrderDetails />
               </Modal>
             )}
             {ingredientDetailsPopupOpen && (
-              <Modal handlePopupState={setIngredientDetailsPopupOpen}>
+              <Modal handlePopupClose={closeIngredientsPopup}>
                 <IngredientDetails />
               </Modal>
             )}

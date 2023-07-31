@@ -1,12 +1,3 @@
-.listIngredients {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 261px;
-  position: relative;
-}
 
 .typeIngredients {
   display: flex;
@@ -14,21 +5,21 @@
   width: 611px;
 }
 
-.name {
-  display: flex;
-  justify-content: center;
-  white-space: pre-wrap;
-  text-align: center;
-  width: 272px;
-}
-
-.price {
-  display: flex;
-  align-items: center;
-}
-
 .scroll {
   height: 600px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.tabContainer {
+  display: flex;
+}
+
+.typeIngredients {
+  margin-top: 0;
+}
+
+.ingredientList {
+  padding: 0;
+  margin: 0;
 }

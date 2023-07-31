@@ -37,3 +37,7 @@
 .element:hover {
   opacity: 0.5;
 }
+
+.navTextActive {
+  color: white;
+}

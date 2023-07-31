@@ -14,6 +14,7 @@ import {
   postIngredient,
 } from "../../services/actions/constructorIngredientsData";
 import { ConstructorElements } from "./constructorElements/constructorElements";
+import { v4 as uuidv4 } from "uuid";
 function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();
   const dataIngredient = useSelector(
@@ -46,7 +47,7 @@ function BurgerConstructor({ handlePopupState }) {
   const [, ref] = useDrop({
     accept: "ingredient",
     drop(item) {
-      dispatch(postIngredient(item));
+      dispatch(postIngredient({...item, uniqueId: uuidv4()}));
     },
   });
 
@@ -54,10 +55,9 @@ function BurgerConstructor({ handlePopupState }) {
     <>
       <div
         className={`mt-25 mb-10 ml-10 ${styles.container}`}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
         ref={ref}
       >
-        <div style={{ display: "flex", whiteSpace: "pre-wrap" }}>
+        <div className={styles.constructorElementContainer}>
           {dataBuns.length > 0 ? (
             <ConstructorElement
               type="top"
@@ -88,7 +88,7 @@ function BurgerConstructor({ handlePopupState }) {
                   el={el}
                   index={index}
                   func={deleteIngredient}
-                  key={index}
+                  key={el.uniqueId}
                 />
               );
             })
@@ -98,7 +98,7 @@ function BurgerConstructor({ handlePopupState }) {
         </ul>
 
         {dataBuns.length > 0 ? (
-          <div style={{ display: "flex", whiteSpace: "pre-wrap" }}>
+          <div className={styles.constructorElementContainer}>
             <ConstructorElement
               type="bottom"
               text={`${dataBuns[0].name} (низ)`}

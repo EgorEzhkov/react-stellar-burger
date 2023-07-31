@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import {
   Tab,
-  CurrencyIcon,
-  Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerIngredients.module.css";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { useDrag } from "react-dnd";
 import { Ingredient } from "./ingredient/ingredient";
@@ -46,7 +44,7 @@ function BurgerIngredients({ setPopupOpen }) {
         <h1 className="text text_type_main-large ml-0 mr-0 mb-5 mt-10">
           Соберите бургер
         </h1>
-        <div style={{ display: "flex" }} className="mb-10">
+        <div className={`mb-10 ${styles.tabContainer}`}>
           <Tab value="Булки" active={current === "Булки"} onClick={setTab}>
             Булки
           </Tab>
@@ -59,40 +57,40 @@ function BurgerIngredients({ setPopupOpen }) {
         </div>
       </div>
       <div className={`custom-scroll ${styles.scroll}`}>
-        <h2 id="Булки" style={{ marginTop: 0 }} className="mb-6">
+        <h2 id="Булки" className={`mb-6 ${styles.typeIngredients}`}>
           Булки
         </h2>
         <div ref={bunsRef} className={styles.typeIngredients}>
-          {data.map((el, index) => {
+          {data.map((el) => {
             if (el.type === "bun")
               return (
-                <ul style={{ padding: 0, margin: 0 }} key={index}>
+                <ul className={styles.ingredientList} key={el._id}>
                   <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
                 </ul>
               );
           })}
         </div>
-        <h2 id="Соусы" style={{ marginTop: 0 }} className="mb-6">
+        <h2 id="Соусы" className={`mb-6 ${styles.typeIngredients}`}>
           Соусы
         </h2>
         <div ref={sausesRef} className={styles.typeIngredients}>
           {data.map((el, index) => {
             if (el.type === "sauce")
               return (
-                <ul style={{ padding: 0, margin: 0 }} key={index}>
+                <ul className={styles.ingredientList} key={index}>
                   <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
                 </ul>
               );
           })}
         </div>
-        <h2 id="Начинки" style={{ marginTop: 0 }} className="mb-6">
+        <h2 id="Начинки" className={`mb-6 ${styles.typeIngredients}`}>
           Начинки
         </h2>
         <div ref={mainRef} className={styles.typeIngredients}>
           {data.map((el, index) => {
             if (el.type === "main")
               return (
-                <ul style={{ padding: 0, margin: 0 }} key={index}>
+                <ul className={styles.ingredientList} key={index}>
                   <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
                 </ul>
               );
