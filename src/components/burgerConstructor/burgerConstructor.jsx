@@ -3,7 +3,7 @@ import {
   ConstructorElement,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./burgerConstructor.module.css";
+import styles from "./BurgerConstructor.module.css";
 import PropTypes from "prop-types";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import {
   deleteIngredient,
   postIngredient,
 } from "../../services/actions/constructorIngredientsData";
-import { ConstructorElements } from "./constructorElements/constructorElements";
+import { ConstructorElements } from "./ConstructorElements/ConstructorElements";
 import { v4 as uuidv4 } from "uuid";
 function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();

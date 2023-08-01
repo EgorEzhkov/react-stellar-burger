@@ -1,4 +1,4 @@
-import styles from "./ingredient.module.css";
+import styles from "./Ingredient.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfoIngredient } from "../../../services/actions/infoIngredientData";
 import { useDrag } from "react-dnd";

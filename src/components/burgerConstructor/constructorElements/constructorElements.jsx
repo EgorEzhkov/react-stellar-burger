@@ -4,7 +4,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import styles from "./constructorElements.module.css";
+import styles from "./ConstructorElements.module.css";
 import { useRef } from "react";
 import { moveIngredient } from "../../../services/actions/constructorIngredientsData";
 

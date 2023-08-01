@@ -1,11 +1,11 @@
-import styles from "./app.module.css";
-import AppHeader from "../appHeader/appHeader";
-import BurgerIngredients from "../burgerIngredients/burgerIngredients";
-import BurgerConstructor from "../burgerConstructor/burgerConstructor";
-import Modal from "../modal/modal";
+import styles from "./App.module.css";
+import AppHeader from "../AppHeader/AppHeader";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
+import Modal from "../Modal/Modal";
 import { useEffect, useState } from "react";
-import OrderDetails from "../orderDetails/orderDetails";
-import IngredientDetails from "../ingredientDetails/ingredientDetails";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
 import { DndProvider } from "react-dnd";

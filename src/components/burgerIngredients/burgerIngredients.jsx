@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import {
   Tab,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./burgerIngredients.module.css";
+import styles from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { useDrag } from "react-dnd";
-import { Ingredient } from "./ingredient/ingredient";
+import { Ingredient } from "./Ingredient/Ingredient";
 function BurgerIngredients({ setPopupOpen }) {
   const data = useSelector((store) => store.ingredients.ingredients);
   const [current, setCurrent] = React.useState("Булки");
@@ -74,10 +74,10 @@ function BurgerIngredients({ setPopupOpen }) {
           Соусы
         </h2>
         <div ref={sausesRef} className={styles.typeIngredients}>
-          {data.map((el, index) => {
+          {data.map((el) => {
             if (el.type === "sauce")
               return (
-                <ul className={styles.ingredientList} key={index}>
+                <ul className={styles.ingredientList} key={el._id}>
                   <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
                 </ul>
               );
@@ -87,10 +87,10 @@ function BurgerIngredients({ setPopupOpen }) {
           Начинки
         </h2>
         <div ref={mainRef} className={styles.typeIngredients}>
-          {data.map((el, index) => {
+          {data.map((el) => {
             if (el.type === "main")
               return (
-                <ul className={styles.ingredientList} key={index}>
+                <ul className={styles.ingredientList} key={el._id}>
                   <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
                 </ul>
               );
