@@ -1,13 +1,13 @@
-import style from "./modalOverlay.module.css";
+import styles from "./ModalOverlay.module.css";
 import PropTypes from "prop-types";
 
 export default function ModalOverlay({ handlePopupClose }) {
   return (
     <div
       onClick={() => {
-        handlePopupClose(false);
+        handlePopupClose();
       }}
-      className={style.overlay}
+      className={styles.overlay}
     ></div>
   );
 }

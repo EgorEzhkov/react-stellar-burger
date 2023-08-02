@@ -1,5 +1,4 @@
-
-const urlIngredients = "https://norma.nomoreparties.space/api/ingredients";
+const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -9,22 +8,21 @@ function checkResponse(res) {
 }
 
 export function apiIngredients() {
-  return fetch(urlIngredients).then((res) => checkResponse(res));
+  return fetch(BASE_URL + 'ingredients').then((res) => checkResponse(res));
 }
 
-export function apiOrder(constructorContext) {
-  return fetch("https://norma.nomoreparties.space/api/orders", {
+export function apiOrder(ingredientsData) {
+  return fetch(BASE_URL + "orders", {
     method: "POST",
     body: JSON.stringify({
-      ingredients: constructorContext.map((el) => {
+      ingredients: ingredientsData.map((el) => {
         return el._id;
       }),
     }),
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((res) => {
-      return checkResponse(res)
-    })
+  }).then((res) => {
+    return checkResponse(res);
+  });
 }

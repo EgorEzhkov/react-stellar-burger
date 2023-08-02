@@ -7,13 +7,6 @@
   width: 261px;
   position: relative;
 }
-
-.typeIngredients {
-  display: flex;
-  flex-wrap: wrap;
-  width: 611px;
-}
-
 .name {
   display: flex;
   justify-content: center;
@@ -21,14 +14,7 @@
   text-align: center;
   width: 272px;
 }
-
 .price {
   display: flex;
   align-items: center;
-}
-
-.scroll {
-  height: 600px;
-  overflow-x: hidden;
-  overflow-y: auto;
 }

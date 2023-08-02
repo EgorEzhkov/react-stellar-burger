@@ -4,8 +4,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import styles from "./appHeader.module.css";
+import styles from "./AppHeader.module.css";
 
 function AppHeader() {
   return (
@@ -14,8 +13,7 @@ function AppHeader() {
         <a href="#" className={`mt-4 mb-4 mr-2 pt-4 pb-4 ${styles.element}`}>
           <BurgerIcon type="primary" />
           <p
-            style={{ color: "white" }}
-            className="text text_type_main-default ml-2 mr-5"
+            className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}
           >
             Конструктор
           </p>
@@ -31,7 +29,6 @@ function AppHeader() {
       <a href="#" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
         <ProfileIcon type="secondary" />
         <p
-          style={{ marginRight: 10 }}
           className="text text_type_main-default ml-2 mr-5"
         >
           Личный кабинет

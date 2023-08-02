@@ -1,0 +1,25 @@
+
+.typeIngredients {
+  display: flex;
+  flex-wrap: wrap;
+  width: 611px;
+}
+
+.scroll {
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.tabContainer {
+  display: flex;
+}
+
+.typeIngredients {
+  margin-top: 0;
+}
+
+.ingredientList {
+  padding: 0;
+  margin: 0;
+}
