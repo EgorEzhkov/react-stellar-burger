@@ -1,21 +1,19 @@
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import Modal from "../Modal/Modal";
+
 import { useEffect, useState } from "react";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { Routes, Route } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { DELETE_INFO_INGREDIENT } from "../../services/actions/infoIngredientData";
+import HomePage from "../../pages/HomePage";
+import LoginPage from "../../pages/LoginPage";
+import RegisterPage from "../../pages/RegisterPage";
+import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
+import ResetPasswordPage from "../../pages/ResetPasswordPage";
 
 function App() {
-  const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState(false);
-  const [ingredientDetailsPopupOpen, setIngredientDetailsPopupOpen] =
-    useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,15 +23,6 @@ function App() {
   const ingredientsRequest = useSelector(
     (store) => store.ingredients.ingredientsRequest
   );
-
-  const closeIngredientsPopup = () => {
-    setIngredientDetailsPopupOpen(false);
-    dispatch({ type: DELETE_INFO_INGREDIENT });
-  };
-
-  const closeOrderPopup = () => {
-    setOrderDetalsPopupOpen(false);
-  };
 
   return (
     <div className={styles.app}>
@@ -49,29 +38,14 @@ function App() {
           <>
             <AppHeader />
             <main className={styles.main}>
-              <DndProvider backend={HTML5Backend}>
-                <div className={styles.div}>
-                  <BurgerIngredients
-                    setPopupOpen={setIngredientDetailsPopupOpen}
-                  />
-                </div>
-                <div>
-                  <BurgerConstructor
-                    handlePopupState={setOrderDetalsPopupOpen}
-                  />
-                </div>
-              </DndProvider>
+              <Routes>
+                <Route path="/" element={<HomePage/>} />
+                <Route path="/login" element={<LoginPage/>} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
+                <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+              </Routes>
             </main>
-            {orderDetalsPopupOpen && (
-              <Modal handlePopupClose={closeOrderPopup}>
-                <OrderDetails />
-              </Modal>
-            )}
-            {ingredientDetailsPopupOpen && (
-              <Modal handlePopupClose={closeIngredientsPopup}>
-                <IngredientDetails />
-              </Modal>
-            )}
           </>
         )}
       </pre>
