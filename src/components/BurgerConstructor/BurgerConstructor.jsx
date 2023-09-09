@@ -17,11 +17,8 @@ import { ConstructorElements } from "./ConstructorElements/ConstructorElements";
 import { v4 as uuidv4 } from "uuid";
 function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();
-  const dataIngredient = useSelector(
-    (store) => store.dataConstructor.ingredients
-  );
+  const dataIngredient = useSelector((store) => store.dataConstructor.ingredients);
   const dataBuns = useSelector((store) => store.dataConstructor.bun);
-
   const totalPrice = useMemo(() => {
     const dataConstructor = [...dataIngredient, ...dataBuns];
     return dataConstructor.reduce((accumulator, item) => {
@@ -47,16 +44,13 @@ function BurgerConstructor({ handlePopupState }) {
   const [, ref] = useDrop({
     accept: "ingredient",
     drop(item) {
-      dispatch(postIngredient({...item, uniqueId: uuidv4()}));
+      dispatch(postIngredient({ ...item, uniqueId: uuidv4() }));
     },
   });
 
   return (
     <>
-      <div
-        className={`mt-25 mb-10 ml-10 ${styles.container}`}
-        ref={ref}
-      >
+      <div className={`mt-25 mb-10 ml-10 ${styles.container}`} ref={ref}>
         <div className={styles.constructorElementContainer}>
           {dataBuns.length > 0 ? (
             <ConstructorElement

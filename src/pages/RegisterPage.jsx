@@ -1,15 +1,31 @@
-import {
-  Input,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import styles from "./LoginPage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RegUserData } from "../services/actions/userData";
+import { useDispatch, useSelector } from "react-redux";
 
 const RegisterPage = () => {
   const [loginValue, setLoginValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [nameValue, setNameValue] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userRegSuccess = useSelector((store) => {
+    return store.userData.registerUserSuccess;
+  });
+
+  const submitForm = (e) => {
+    dispatch(RegUserData(loginValue, passwordValue, nameValue));
+    e.preventDefault();
+    return userRegSuccess
+      ? (setLoginValue(""),
+        setPasswordValue(""),
+        setNameValue(""),
+        navigate("/login", { replace: true }))
+      : console.log("Произошла ошибка");
+  };
 
   return (
     <div>
@@ -47,24 +63,17 @@ const RegisterPage = () => {
           ></Input>
         </div>
         <div className={`${styles.button} mb-20`}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="large"
-            onClick={() => {
-              console.log(loginValue, passwordValue);
-            }}
-          >
+          <Button htmlType="submit" type="primary" size="large" onClick={submitForm}>
             Зарегистрироваться
           </Button>
         </div>
       </form>
       <div></div>
-      <p
-        className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}
-      >
+      <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
         Уже зарегистрированы?
-        <Link to='/login' className={styles.link}> Войти</Link>
+        <Link to="/login" className={styles.link}>
+          Войти
+        </Link>
       </p>
     </div>
   );

@@ -1,7 +1,4 @@
-import {
-  Input,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,23 +24,15 @@ const ForgotPasswordPage = () => {
           ></Input>
         </div>
         <div className={`${styles.button} mb-20`}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="large"
-            onClick={checkEmail}
-          >
+          <Button htmlType="submit" type="primary" size="large" onClick={checkEmail}>
             Восстановить
           </Button>
         </div>
       </form>
       <div></div>
-      <p
-        className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}
-      >
+      <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
         Вспомнили пароль?
         <Link to="/register" className={styles.link}>
-          {" "}
           Войти
         </Link>
       </p>

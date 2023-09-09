@@ -36,8 +36,6 @@ export const consctructorIngredientsReduser = (
       return { ...state, ingredients: [action.payload] };
     }
     case MOVE_INGREDIENT: {
-      // const ingredients = [...state.ingredients];
-      // ingredients.splice(action.payload.dragIndex, 0, ingredients.splice(action.payload.hoverIndex, 1)[0])
       return {
         ...state,
         ingredients: update(state.ingredients, {

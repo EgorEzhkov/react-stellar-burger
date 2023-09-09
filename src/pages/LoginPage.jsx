@@ -1,14 +1,26 @@
-import {
-  Input,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useEffect, useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
+import { LogInUserData } from "../services/actions/userData";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage = () => {
   const [loginValue, setLoginValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+
+  const dispatch = useDispatch();
+
+  const userLogInSuccess = useSelector((store) => {
+    return store.userData.logInUserSuccess;
+  });
+
+  const logIn = (e) => {
+    e.preventDefault();
+    console.log(userLogInSuccess);
+    dispatch(LogInUserData(loginValue, passwordValue));
+    return userLogInSuccess ? (setLoginValue(""), setPasswordValue("")) : null;
+  };
 
   return (
     <div>
@@ -36,29 +48,24 @@ const LoginPage = () => {
           ></Input>
         </div>
         <div className={`${styles.button} mb-20`}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="large"
-            onClick={() => {
-              console.log(loginValue, passwordValue);
-            }}
-          >
+          <Button htmlType="submit" type="primary" size="large" onClick={logIn}>
             Войти
           </Button>
         </div>
       </form>
       <div></div>
-      <p
-        className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}
-      >
+      <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
         Вы - новый пользователь?
-        <Link to='/register' className={styles.link}> Зарегистрироваться</Link>
+        <Link to="/register" className={styles.link}>
+          {" "}
+          Зарегистрироваться
+        </Link>
       </p>
-      <p
-        className={`text text_type_main-default text_color_inactive ${styles.text}`}
-      >
-        Забыли пароль? <Link to='/forgot-password' className={styles.link}>Восстановить пароль</Link>
+      <p className={`text text_type_main-default text_color_inactive ${styles.text}`}>
+        Забыли пароль?{" "}
+        <Link to="/forgot-password" className={styles.link}>
+          Восстановить пароль
+        </Link>
       </p>
     </div>
   );

@@ -1,28 +1,28 @@
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
-import { DELETE_INFO_INGREDIENT } from "../../services/actions/infoIngredientData";
 import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
+import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
+import { getUserData } from "../../services/actions/userData";
+import { ProfilePage } from "../../pages/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
-
+  const user = useSelector((store) => store.userData);
+  console.log(user);
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getUserData());
   }, [dispatch]);
 
-  const ingredientsRequest = useSelector(
-    (store) => store.ingredients.ingredientsRequest
-  );
+  const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
 
   return (
     <div className={styles.app}>
@@ -39,11 +39,18 @@ function App() {
             <AppHeader />
             <main className={styles.main}>
               <Routes>
-                <Route path="/" element={<HomePage/>} />
-                <Route path="/login" element={<LoginPage/>} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage/>}/>
-                <Route path="/reset-password" element={<ResetPasswordPage/>}/>
+                <Route path="/" element={<OnlyAuth component={<HomePage />} />} />
+                <Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
+                <Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
+                <Route
+                  path="/forgot-password"
+                  element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+                />
+                <Route
+                  path="/reset-password"
+                  element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+                />
+                <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
               </Routes>
             </main>
           </>
