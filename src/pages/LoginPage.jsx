@@ -2,7 +2,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { useEffect, useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
-import { LogInUserData } from "../services/actions/userData";
+import { logInUser } from "../services/actions/userData";
 import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage = () => {
@@ -18,7 +18,7 @@ const LoginPage = () => {
   const logIn = (e) => {
     e.preventDefault();
     console.log(userLogInSuccess);
-    dispatch(LogInUserData(loginValue, passwordValue));
+    dispatch(logInUser(loginValue, passwordValue));
     return userLogInSuccess ? (setLoginValue(""), setPasswordValue("")) : null;
   };
 

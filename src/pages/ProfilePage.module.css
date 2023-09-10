@@ -7,12 +7,15 @@ inputs */
   flex-direction: row;
   margin-top: 120px;
   margin-right: auto;
+  font-family: 'Jet Brains Mono';
+  font-weight: bold;
 }
 
 .navLinks {
   display: flex;
   flex-direction: column;
   max-width: 320px;
+  min-width: 216px;
   white-space: wrap;
 }
 
@@ -25,7 +28,6 @@ inputs */
   text-decoration: none;
   color: #8585ad;
   font-size: 24px;
-  max-width: 320px;
   min-height: 64px;
 }
 

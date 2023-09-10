@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { EditIcon, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getUserData } from "../services/actions/userData";
+import { logOutUser } from "../services/actions/userData";
 
 export const ProfilePage = () => {
   const [loginValue, setLoginValue] = useState("");
@@ -11,9 +11,12 @@ export const ProfilePage = () => {
   const [nameValue, setNameValue] = useState("");
   const dispatch = useDispatch();
 
+  const logOut = () => {
+    dispatch(logOutUser())
+  }
   return (
     <div className={styles.container}>
-      <div className={`mr-15 ${styles.navLinks}`}>
+      <div className={`mr-20 ${styles.navLinks}`}>
         <NavLink
           to="/profile"
           className={({ isActive, isPending }) =>
@@ -25,7 +28,9 @@ export const ProfilePage = () => {
         <NavLink to="/profile/orders" className={styles.navLink}>
           История заказов
         </NavLink>
-        <NavLink className={styles.navLink}>Выход</NavLink>
+        <NavLink onClick={logOut} className={styles.navLink}>
+          Выход
+        </NavLink>
         <p className="text text_type_main-default text_color_inactive mt-20">
           В этом разделе вы можете изменить свои персональные данные
         </p>

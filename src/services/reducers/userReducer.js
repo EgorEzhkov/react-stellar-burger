@@ -9,6 +9,9 @@ import {
   GET_USER_DATA_REQUEST,
   GET_USER_DATA_FAILED,
   GET_USER_DATA_SUCCESS,
+  LOG_OUT_USER_FAILED,
+  LOG_OUT_USER_REQUEST,
+  LOG_OUT_USER_SUCCESS,
 } from "../actions/userData";
 
 const initialState = {
@@ -25,6 +28,9 @@ const initialState = {
   getUserDataSuccess: false,
   getUserDataFailed: false,
   isAuthenticated: false,
+  logOutUserRequest: false,
+  logOutUserSuccess: false,
+  logOutUserFailed: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -64,6 +70,7 @@ export const userReducer = (state = initialState, action) => {
         logInUserSuccess: true,
         userLogIn: action.userDataLogIn,
         isAuthenticated: true,
+
       };
     }
     case LOG_IN_USER_FAILED: {
@@ -93,8 +100,8 @@ export const userReducer = (state = initialState, action) => {
         getUserDataSuccess: true,
         getUserDataFailed: false,
         userData: action.userData,
-        isAuthenticated: true
-      }
+        isAuthenticated: true,
+      };
     }
     case GET_USER_DATA_FAILED: {
       return {
@@ -102,7 +109,40 @@ export const userReducer = (state = initialState, action) => {
         getUserDataFailed: true,
         getUserDataRequest: false,
         getUserDataSuccess: false,
-      }
+      };
+    }
+    case LOG_OUT_USER_REQUEST: {
+      return {
+        ...state,
+        logOutUserRequest: true,
+      };
+    }
+    case LOG_OUT_USER_SUCCESS: {
+      return {
+        ...state,
+        userReg: {},
+        userLogIn: {},
+        userData: {},
+        registerUserRequest: false,
+        registerUserSuccess: false,
+        registerUserFailed: false,
+        logInUserRequest: false,
+        logInUserSuccess: false,
+        logInUserFailed: false,
+        getUserDataRequest: false,
+        getUserDataSuccess: false,
+        getUserDataFailed: false,
+        isAuthenticated: false,
+        logOutUserRequest: false,
+        logOutUserSuccess: true,
+        logOutUserFailed: false,
+      };
+    }
+    case LOG_OUT_USER_FAILED: {
+      return {
+        logOutUserFailed: true,
+        logOutUserRequest: false
+      };
     }
     default: {
       return state;

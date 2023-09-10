@@ -2,7 +2,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { RegUserData } from "../services/actions/userData";
+import { regUser } from "../services/actions/userData";
 import { useDispatch, useSelector } from "react-redux";
 
 const RegisterPage = () => {
@@ -17,7 +17,7 @@ const RegisterPage = () => {
   });
 
   const submitForm = (e) => {
-    dispatch(RegUserData(loginValue, passwordValue, nameValue));
+    dispatch(regUser(loginValue, passwordValue, nameValue));
     e.preventDefault();
     return userRegSuccess
       ? (setLoginValue(""),

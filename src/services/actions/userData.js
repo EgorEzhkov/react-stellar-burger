@@ -1,4 +1,4 @@
-import { apiGetUser, apiUserLogIn, apiUserReg } from "../../utils/api";
+import { apiGetUser, apiUserLogIn, apiUserLogOut, apiUserReg } from "../../utils/api";
 
 export const REG_USER_SUCCESS = "GET_USER_SUCCESS";
 export const REG_USER_FAILED = "GET_USER_FAILED";
@@ -7,6 +7,10 @@ export const REG_USER_REQUEST = "GET_USER_REQUEST";
 export const LOG_IN_USER_REQUEST = "LOG_IN_USER_REQUEST";
 export const LOG_IN_USER_FAILED = "LOG_IN_USER_FAILED";
 export const LOG_IN_USER_SUCCESS = "LOG_IN_USER_SUCCESS";
+
+export const LOG_OUT_USER_REQUEST = "LOG_OUT_USER_REQUEST";
+export const LOG_OUT_USER_FAILED = "LOG_OUT_USER_FAILED";
+export const LOG_OUT_USER_SUCCESS = "LOG_OUT_USER_SUCCESS";
 
 export const SET_AUTH_CHECKED = "SET_AUTH_CHECKED";
 
@@ -36,7 +40,7 @@ export const getUserData = () => {
   };
 };
 
-export const RegUserData = (email, password, name) => {
+export const regUser = (email, password, name) => {
   return function (dispatch) {
     dispatch({ type: REG_USER_REQUEST });
     apiUserReg(email, password, name)
@@ -60,7 +64,7 @@ export const RegUserData = (email, password, name) => {
   };
 };
 
-export const LogInUserData = (email, password) => {
+export const logInUser = (email, password) => {
   return function (dispatch) {
     dispatch({ type: LOG_IN_USER_REQUEST });
     apiUserLogIn(email, password)
@@ -82,6 +86,26 @@ export const LogInUserData = (email, password) => {
       })
       .catch(() => {
         dispatch({ type: LOG_IN_USER_FAILED });
+      });
+  };
+};
+
+export const logOutUser = () => {
+  return function (dispatch) {
+    dispatch({ type: LOG_OUT_USER_REQUEST });
+    apiUserLogOut()
+      .then((res) => {
+        if (res && res.success) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          dispatch({ type: LOG_OUT_USER_SUCCESS });
+          dispatch({ type: SET_AUTH_CHECKED, payload: false });
+        } else {
+          dispatch({ type: LOG_OUT_USER_FAILED });
+        }
+      })
+      .catch(() => {
+        dispatch({ type: LOG_OUT_USER_FAILED });
       });
   };
 };
