@@ -55,14 +55,13 @@ const LoginPage = () => {
       </form>
       <div></div>
       <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
-        Вы - новый пользователь?
+        Вы - новый пользователь?&nbsp;
         <Link to="/register" className={styles.link}>
-          {" "}
           Зарегистрироваться
         </Link>
       </p>
       <p className={`text text_type_main-default text_color_inactive ${styles.text}`}>
-        Забыли пароль?{" "}
+        Забыли пароль?&nbsp;
         <Link to="/forgot-password" className={styles.link}>
           Восстановить пароль
         </Link>

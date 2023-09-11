@@ -39,7 +39,7 @@ function App() {
             <AppHeader />
             <main className={styles.main}>
               <Routes>
-                <Route path="/" element={<OnlyAuth component={<HomePage />} />} />
+                <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
                 <Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
                 <Route

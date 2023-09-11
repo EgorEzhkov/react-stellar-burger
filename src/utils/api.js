@@ -112,3 +112,29 @@ export const apiGetUser = () => {
     },
   });
 };
+
+export const apiForgotPassword = (email) => {
+  return fetch(BASE_URL + "password-reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      email: email,
+    },
+  }).then((res) => {
+    return checkResponse(res);
+  });
+};
+
+export const apiResetPassword = (password, token) => {
+  return fetch(BASE_URL + "password-reset/reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      password: password,
+      token: token,
+    },
+  }).then((res) => {
+    return checkResponse(res)
+  })
+};
+

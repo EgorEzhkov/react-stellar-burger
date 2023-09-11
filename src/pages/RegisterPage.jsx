@@ -70,7 +70,7 @@ const RegisterPage = () => {
       </form>
       <div></div>
       <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
-        Уже зарегистрированы?
+        Уже зарегистрированы?&nbsp;
         <Link to="/login" className={styles.link}>
           Войти
         </Link>

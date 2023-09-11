@@ -15,8 +15,11 @@ import {
 } from "../../services/actions/constructorIngredientsData";
 import { ConstructorElements } from "./ConstructorElements/ConstructorElements";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const userData = useSelector((store) => store.userData.isAuthenticated)
   const dataIngredient = useSelector((store) => store.dataConstructor.ingredients);
   const dataBuns = useSelector((store) => store.dataConstructor.bun);
   const totalPrice = useMemo(() => {
@@ -47,6 +50,16 @@ function BurgerConstructor({ handlePopupState }) {
       dispatch(postIngredient({ ...item, uniqueId: uuidv4() }));
     },
   });
+
+
+
+  const onClickButton = () => {
+    if (userData) {
+      apiOrderData(handlePopupState, dataIngredient)
+    } else {
+      navigate('/login')
+    }
+  }
 
   return (
     <>
@@ -111,7 +124,7 @@ function BurgerConstructor({ handlePopupState }) {
           <CurrencyIcon />
         </p>
         <Button
-          onClick={() => apiOrderData(handlePopupState, dataIngredient)}
+          onClick={() => onClickButton()}
           htmlType="button"
           type="primary"
           size="large"
