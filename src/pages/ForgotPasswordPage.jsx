@@ -47,7 +47,7 @@ const ForgotPasswordPage = () => {
       <div></div>
       <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
         Вспомнили пароль?&nbsp;
-        <Link to="/register" className={styles.link}>
+        <Link to="/login" className={styles.link}>
           Войти
         </Link>
       </p>
