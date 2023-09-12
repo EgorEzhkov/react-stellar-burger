@@ -120,9 +120,6 @@ export const userReducer = (state = initialState, action) => {
     case LOG_OUT_USER_SUCCESS: {
       return {
         ...state,
-        userReg: {},
-        userLogIn: {},
-        userData: {},
         registerUserRequest: false,
         registerUserSuccess: false,
         registerUserFailed: false,

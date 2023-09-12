@@ -5,18 +5,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../services/actions/userData";
 import { getUserData } from "../services/actions/userData";
+
 export const ProfilePage = () => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getUserData());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUserData());
+  }, [dispatch]);
 
-  // const name = useSelector((store) => store.userData.userData.user.name);
-  // const login = useSelector((store) => store.userData.userData.user.email);
-  const [loginValue, setLoginValue] = useState("login");
+  const name = useSelector((store) => store.userData.userData.user.name);
+  const login = useSelector((store) => store.userData.userData.user.email);
+
+  const [loginValue, setLoginValue] = useState(login);
   const [passwordValue, setPasswordValue] = useState("*******");
-  const [nameValue, setNameValue] = useState("name");
+  const [nameValue, setNameValue] = useState(name);
 
   const logOut = () => {
     dispatch(logOutUser());
