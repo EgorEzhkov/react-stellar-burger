@@ -12,6 +12,9 @@ import {
   LOG_OUT_USER_FAILED,
   LOG_OUT_USER_REQUEST,
   LOG_OUT_USER_SUCCESS,
+  POST_USER_DATA_REQUEST,
+  POST_USER_DATA_FAILED,
+  POST_USER_DATA_SUCCESS,
 } from "../actions/userData";
 
 const initialState = {
@@ -27,6 +30,9 @@ const initialState = {
   getUserDataRequest: false,
   getUserDataSuccess: false,
   getUserDataFailed: false,
+  postUserDataRequest: false,
+  postUserDataSuccess: false,
+  postUserDataFailed: false,
   isAuthenticated: false,
   logOutUserRequest: false,
   logOutUserSuccess: false,
@@ -70,7 +76,6 @@ export const userReducer = (state = initialState, action) => {
         logInUserSuccess: true,
         userLogIn: action.userDataLogIn,
         isAuthenticated: true,
-
       };
     }
     case LOG_IN_USER_FAILED: {
@@ -111,6 +116,30 @@ export const userReducer = (state = initialState, action) => {
         getUserDataSuccess: false,
       };
     }
+    case POST_USER_DATA_REQUEST: {
+      return {
+        ...state,
+        postUserDataRequest: true,
+        postUserDataFailed: false
+      };
+    }
+    case POST_USER_DATA_SUCCESS: {
+      return {
+        ...state,
+        postUserDataRequest: false,
+        postUserDataSuccess: true,
+        postUserDataFailed: false,
+        userData: action.userData,
+      }
+    }
+    case POST_USER_DATA_FAILED: {
+      return {
+        ...state,
+        postUserDataFailed: true,
+        postUserDataRequest: false,
+        postUserDataSuccess: false
+      }
+    }
     case LOG_OUT_USER_REQUEST: {
       return {
         ...state,
@@ -138,7 +167,7 @@ export const userReducer = (state = initialState, action) => {
     case LOG_OUT_USER_FAILED: {
       return {
         logOutUserFailed: true,
-        logOutUserRequest: false
+        logOutUserRequest: false,
       };
     }
     default: {

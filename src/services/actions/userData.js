@@ -18,6 +18,10 @@ export const GET_USER_DATA_REQUEST = "GET_USER_DATA_REQUEST";
 export const GET_USER_DATA_FAILED = "GET_USER_DATA_FAILED";
 export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";
 
+export const POST_USER_DATA_REQUEST = "POST_USER_DATA_REQUEST";
+export const POST_USER_DATA_FAILED = "POST_USER_DATA_FAILED";
+export const POST_USER_DATA_SUCCESS = "POST_USER_DATA_SUCCESS";
+
 export const getUserData = () => {
   return function (dispatch) {
     dispatch({ type: GET_USER_DATA_REQUEST });
@@ -106,6 +110,29 @@ export const logOutUser = () => {
       })
       .catch(() => {
         dispatch({ type: LOG_OUT_USER_FAILED });
+      });
+  };
+};
+
+export const postUserData = (login, name) => {
+  return function (dispatch) {
+    dispatch({ type: POST_USER_DATA_REQUEST });
+    apiGetUser(login, name)
+      .then((res) => {
+        console.log(res)
+        if (res && res.success) {
+          dispatch({
+            type: POST_USER_DATA_SUCCESS,
+            userData: res,
+          });
+        } else {
+          dispatch({
+            type: POST_USER_DATA_FAILED,
+          });
+        }
+      })
+      .catch(() => {
+        dispatch({ type: POST_USER_DATA_FAILED });
       });
   };
 };

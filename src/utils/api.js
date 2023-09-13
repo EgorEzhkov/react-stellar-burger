@@ -134,7 +134,23 @@ export const apiResetPassword = (password, token) => {
       token: token,
     },
   }).then((res) => {
-    return checkResponse(res)
-  })
+    return checkResponse(res);
+  });
 };
 
+export const apiPostUser = (email, name) => {
+  return fetchWithRefresh(BASE_URL + "auth/user", {
+    method: "POST",
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+      email: email,
+      name: name,
+    }),
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      authorization: localStorage.getItem("accessToken"),
+    },
+  }).then((res) => {
+    return checkResponse(res);
+  });
+};

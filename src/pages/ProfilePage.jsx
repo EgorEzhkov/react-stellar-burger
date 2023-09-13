@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { EditIcon, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutUser } from "../services/actions/userData";
+import { logOutUser, postUserData } from "../services/actions/userData";
 import { getUserData } from "../services/actions/userData";
 
 export const ProfilePage = () => {
@@ -20,8 +20,16 @@ export const ProfilePage = () => {
   const [passwordValue, setPasswordValue] = useState("fdsafdsaf");
   const [nameValue, setNameValue] = useState(name);
 
+  const [disabledName, setDisabledName] = useState(true);
+  const [disabledLogin, setDisabledLogin] = useState(true);
+
   const lala = () => {
     alert("ИДИ ПОКА НАААААА НЕБО ЗА ЗВЕЗДОЧКОЙ");
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    console.log("fdsaf");
   };
 
   const logOut = () => {
@@ -49,7 +57,12 @@ export const ProfilePage = () => {
         </p>
       </div>
       <div className={styles.inputs}>
-        <div className="mb-6">
+        <form
+          onSubmit={(e) => {
+            return submit(e), setDisabledName(true), dispatch(postUserData(nameValue));
+          }}
+          className="mb-6"
+        >
           <Input
             onChange={(e) => {
               setNameValue(e.target.value);
@@ -58,13 +71,18 @@ export const ProfilePage = () => {
             icon={"EditIcon"}
             value={nameValue}
             placeholder={"Имя"}
-            disabled={true}
+            disabled={disabledName}
             onIconClick={() => {
-              lala();
+              disabledName === false ? setDisabledName(true) : setDisabledName(false);
             }}
           ></Input>
-        </div>
-        <div className="mb-6">
+        </form>
+        <form
+          onSubmit={(e) => {
+            return submit(e), setDisabledLogin(true), dispatch(postUserData(loginValue));
+          }}
+          className="mb-6"
+        >
           <Input
             onChange={(e) => {
               setLoginValue(e.target.value);
@@ -73,12 +91,12 @@ export const ProfilePage = () => {
             icon={"EditIcon"}
             value={loginValue}
             placeholder={"Логин"}
-            disabled={true}
+            disabled={disabledLogin}
             onIconClick={() => {
-              lala();
+              disabledLogin === false ? setDisabledLogin(true) : setDisabledLogin(false);
             }}
           ></Input>
-        </div>
+        </form>
         <div className="mb-6">
           <Input
             onChange={(e) => {
