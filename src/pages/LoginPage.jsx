@@ -4,10 +4,13 @@ import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
 import { logInUser } from "../services/actions/userData";
 import { useDispatch, useSelector } from "react-redux";
+import { usePasswordShow } from "../utils/util";
 
 const LoginPage = () => {
   const [loginValue, setLoginValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+
+  const passwordShow = usePasswordShow();
 
   const dispatch = useDispatch();
 
@@ -41,10 +44,13 @@ const LoginPage = () => {
             onChange={(e) => {
               setPasswordValue(e.target.value);
             }}
-            type="password"
+            type={`${passwordShow.type}`}
             value={passwordValue}
-            icon={"HideIcon"}
+            icon={`${passwordShow.icon}`}
             placeholder="Пароль"
+            onIconClick={() => {
+              passwordShow.showPassword();
+            }}
           ></Input>
         </div>
         <div className={`${styles.button} mb-20`}>

@@ -4,9 +4,9 @@ import styles from "./LoginPage.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { apiResetPassword } from "../utils/api";
+import { usePasswordShow } from "../utils/util";
 
 const ResetPasswordPage = () => {
-  const navigate = useNavigate();
   const [passwordValue, setPasswordValue] = useState("");
   const [token, setToken] = useState("");
   const submit = (e) => {
@@ -23,7 +23,7 @@ const ResetPasswordPage = () => {
       });
   };
 
-  const resetPassword = () => {};
+  const passwordShow = usePasswordShow()
 
   return localStorage.getItem("resetPasswordOk") ? (
     <div>
@@ -34,9 +34,11 @@ const ResetPasswordPage = () => {
             onChange={(e) => {
               setPasswordValue(e.target.value);
             }}
-            type="password"
+            type={`${passwordShow.type}`}
             value={passwordValue}
             placeholder="Введите новый пароль"
+            icon={`${passwordShow.icon}`}
+            onIconClick={passwordShow.showPassword}
           ></Input>
         </div>
         <div className="mb-6">

@@ -17,8 +17,12 @@ export const ProfilePage = () => {
   const login = useSelector((store) => store.userData.userData.user.email);
 
   const [loginValue, setLoginValue] = useState(login);
-  const [passwordValue, setPasswordValue] = useState("*******");
+  const [passwordValue, setPasswordValue] = useState("fdsafdsaf");
   const [nameValue, setNameValue] = useState(name);
+
+  const lala = () => {
+    alert("ИДИ ПОКА НАААААА НЕБО ЗА ЗВЕЗДОЧКОЙ");
+  };
 
   const logOut = () => {
     dispatch(logOutUser());
@@ -54,6 +58,10 @@ export const ProfilePage = () => {
             icon={"EditIcon"}
             value={nameValue}
             placeholder={"Имя"}
+            disabled={true}
+            onIconClick={() => {
+              lala();
+            }}
           ></Input>
         </div>
         <div className="mb-6">
@@ -65,6 +73,10 @@ export const ProfilePage = () => {
             icon={"EditIcon"}
             value={loginValue}
             placeholder={"Логин"}
+            disabled={true}
+            onIconClick={() => {
+              lala();
+            }}
           ></Input>
         </div>
         <div className="mb-6">
@@ -72,10 +84,14 @@ export const ProfilePage = () => {
             onChange={(e) => {
               setPasswordValue(e.target.value);
             }}
-            type="password"
+            type={"password"}
             icon={"EditIcon"}
             value={passwordValue}
             placeholder={"Пароль"}
+            disabled={true}
+            onIconClick={() => {
+              lala();
+            }}
           ></Input>
         </div>
       </div>
