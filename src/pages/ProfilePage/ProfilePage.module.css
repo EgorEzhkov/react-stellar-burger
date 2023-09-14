@@ -19,11 +19,6 @@ inputs */
   white-space: wrap;
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-}
-
 .navLink {
   text-decoration: none;
   color: #8585ad;

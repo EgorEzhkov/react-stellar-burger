@@ -25,7 +25,7 @@ function AppHeader() {
       <div className={styles.logo}>
         <Logo />
       </div>
-      <NavLink to="/profile" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
+      <NavLink to="/profile/user" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
         <ProfileIcon type="secondary" />
         <p className="text text_type_main-default ml-2 mr-5">Личный кабинет</p>
       </NavLink>

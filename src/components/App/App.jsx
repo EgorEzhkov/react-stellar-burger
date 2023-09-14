@@ -11,7 +11,9 @@ import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../../pages/ResetPasswordPage";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 import { getUserData } from "../../services/actions/userData";
-import { ProfilePage } from "../../pages/ProfilePage";
+import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
+import { Profile } from "../../pages/ProfilePage/Profile/Profile";
+import { Orders } from "../../pages/ProfilePage/Orders/Orders";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,7 +52,11 @@ function App() {
                   path="/reset-password"
                   element={<OnlyUnAuth component={<ResetPasswordPage />} />}
                 />
-                <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
+                <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />}>
+                  <Route index element={<Profile />}></Route>
+                  <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
+                  <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
+                </Route>
               </Routes>
             </main>
           </>
