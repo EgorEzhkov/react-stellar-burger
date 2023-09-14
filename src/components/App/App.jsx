@@ -53,7 +53,6 @@ function App() {
                   element={<OnlyUnAuth component={<ResetPasswordPage />} />}
                 />
                 <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />}>
-                  <Route index element={<Profile />}></Route>
                   <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
                   <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
                 </Route>
