@@ -24,7 +24,6 @@
 .element {
   text-decoration: none;
   color: #8585ad;
-  transition: 0.4s;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -34,9 +33,6 @@
   justify-content: end;
 }
 
-.element:hover {
-  opacity: 0.5;
-}
 
 .navTextActive {
   color: white;
