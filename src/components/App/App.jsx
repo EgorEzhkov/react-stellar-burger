@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
 import HomePage from "../../pages/HomePage";
@@ -14,18 +14,19 @@ import { getUserData } from "../../services/actions/userData";
 import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
 import { Profile } from "../../pages/ProfilePage/Profile/Profile";
 import { Orders } from "../../pages/ProfilePage/Orders/Orders";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.userData);
-  console.log(user);
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getUserData());
   }, [dispatch]);
-
   const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
-
   return (
     <div className={styles.app}>
       <pre
@@ -40,7 +41,7 @@ function App() {
           <>
             <AppHeader />
             <main className={styles.main}>
-              <Routes>
+              <Routes location={background || location}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
                 <Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
@@ -56,7 +57,25 @@ function App() {
                   <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
                   <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
                 </Route>
+                <Route path="/ingredients/:id" element={<IngredientDetails />}></Route>
               </Routes>
+              {background && (
+                <Routes>
+                  {}
+                  <Route
+                    path="/ingredients/:id"
+                    element={
+                      <Modal
+                        handlePopupClose={() => {
+                          navigate(-1);
+                        }}
+                      >
+                        <IngredientDetails />
+                      </Modal>
+                    }
+                  ></Route>
+                </Routes>
+              )}
             </main>
           </>
         )}

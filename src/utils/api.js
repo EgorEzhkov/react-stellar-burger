@@ -52,6 +52,7 @@ export function apiOrder(ingredientsData) {
     }),
     headers: {
       "Content-Type": "application/json",
+      authorization: localStorage.getItem("accessToken"),
     },
   }).then((res) => {
     return checkResponse(res);

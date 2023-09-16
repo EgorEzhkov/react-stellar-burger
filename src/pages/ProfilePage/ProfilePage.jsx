@@ -1,9 +1,8 @@
 import styles from "./ProfilePage.module.css";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { EditIcon, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logOutUser, postUserData } from "../../services/actions/userData";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../services/actions/userData";
 import { getUserData } from "../../services/actions/userData";
 
 export const ProfilePage = () => {
@@ -17,7 +16,6 @@ export const ProfilePage = () => {
   const logOut = () => {
     dispatch(logOutUser());
   };
-  console.log(location);
   return (
     <div className={styles.container}>
       <nav className={`mr-20 ${styles.navLinks}`}>

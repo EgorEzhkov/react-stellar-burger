@@ -20,7 +20,6 @@ const LoginPage = () => {
 
   const logIn = (e) => {
     e.preventDefault();
-    console.log(userLogInSuccess);
     dispatch(logInUser(loginValue, passwordValue));
     return userLogInSuccess ? (setLoginValue(""), setPasswordValue("")) : null;
   };

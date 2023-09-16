@@ -11,18 +11,14 @@ import { useDispatch } from "react-redux";
 import { DELETE_INFO_INGREDIENT } from "../services/actions/infoIngredientData";
 
 const HomePage = () => {
-  const dispatch = useDispatch() 
-  const [ingredientDetailsPopupOpen, setIngredientDetailsPopupOpen] =
-    useState(false);
+  const dispatch = useDispatch();
+  const [ingredientDetailsPopupOpen, setIngredientDetailsPopupOpen] = useState(false);
   const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState(false);
   const closeOrderPopup = () => {
     setOrderDetalsPopupOpen(false);
   };
 
-  const closeIngredientsPopup = () => {
-    setIngredientDetailsPopupOpen(false);
-    dispatch({ type: DELETE_INFO_INGREDIENT });
-  };
+
 
   return (
     <>
@@ -37,11 +33,6 @@ const HomePage = () => {
       {orderDetalsPopupOpen && (
         <Modal handlePopupClose={closeOrderPopup}>
           <OrderDetails />
-        </Modal>
-      )}
-      {ingredientDetailsPopupOpen && (
-        <Modal handlePopupClose={closeIngredientsPopup}>
-          <IngredientDetails />
         </Modal>
       )}
     </>

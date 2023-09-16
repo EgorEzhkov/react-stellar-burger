@@ -18,8 +18,8 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const userData = useSelector((store) => store.userData.isAuthenticated)
+  const navigate = useNavigate();
+  const userData = useSelector((store) => store.userData.isAuthenticated);
   const dataIngredient = useSelector((store) => store.dataConstructor.ingredients);
   const dataBuns = useSelector((store) => store.dataConstructor.bun);
   const totalPrice = useMemo(() => {
@@ -37,7 +37,7 @@ function BurgerConstructor({ handlePopupState }) {
   const [buttonState, setButtonState] = useState(false);
 
   useEffect(() => {
-    if (dataIngredient.length > 0) {
+    if (dataIngredient.length > 0 && dataBuns.length > 0) {
       setButtonState(false);
     } else {
       setButtonState(true);
@@ -51,15 +51,13 @@ function BurgerConstructor({ handlePopupState }) {
     },
   });
 
-
-
   const onClickButton = () => {
     if (userData) {
-      apiOrderData(handlePopupState, dataIngredient)
+      apiOrderData(handlePopupState, dataIngredient);
     } else {
-      navigate('/login')
+      navigate("/login");
     }
-  }
+  };
 
   return (
     <>

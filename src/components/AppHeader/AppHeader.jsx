@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom";
 
 function AppHeader() {
   const location = useLocation();
-  console.log(location);
   return (
     <header className={styles.header}>
       <div className={styles.container}>
