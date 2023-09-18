@@ -7,8 +7,9 @@ import { useDrag, useDrop } from "react-dnd";
 import styles from "./ConstructorElements.module.css";
 import { useRef } from "react";
 import { moveIngredient } from "../../../services/actions/constructorIngredientsData";
+import PropTypes from "prop-types";
 
-export function ConstructorElements({ el, index, func, moveCard }) {
+export function ConstructorElements({ el, index, func }) {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
@@ -70,3 +71,9 @@ export function ConstructorElements({ el, index, func, moveCard }) {
     );
   }
 }
+
+ConstructorElements.propTypes = {
+  el: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  func: PropTypes.func.isRequired,
+};

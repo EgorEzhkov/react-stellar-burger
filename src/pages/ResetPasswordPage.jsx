@@ -20,6 +20,7 @@ const ResetPasswordPage = () => {
       })
       .catch(() => {
         console.log("Неверный код из почты");
+        localStorage.removeItem("resetPasswordOk");
       });
   };
 

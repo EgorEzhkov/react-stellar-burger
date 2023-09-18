@@ -141,7 +141,7 @@ export const apiResetPassword = (password, token) => {
 
 export const apiPostUser = (email, name) => {
   return fetchWithRefresh(BASE_URL + "auth/user", {
-    method: "POST",
+    method: "PATCH",
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
       email: email,
@@ -151,7 +151,5 @@ export const apiPostUser = (email, name) => {
       "Content-Type": "application/json;charset=utf-8",
       authorization: localStorage.getItem("accessToken"),
     },
-  }).then((res) => {
-    return checkResponse(res);
-  });
+  }).catch((err) => console.log(err))
 };

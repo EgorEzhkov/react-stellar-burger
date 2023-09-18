@@ -1,4 +1,7 @@
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Input,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,17 +24,23 @@ const RegisterPage = () => {
   const submitForm = (e) => {
     dispatch(regUser(loginValue, passwordValue, nameValue));
     e.preventDefault();
-    return userRegSuccess
-      ? (setLoginValue(""),
-        setPasswordValue(""),
-        setNameValue(""),
-        navigate("/login", { replace: true }))
-      : console.log("Произошла ошибка");
+    return (
+      userRegSuccess &&
+      (setLoginValue(""),
+      setPasswordValue(""),
+      setNameValue(""),
+      navigate("/login", { replace: true }))
+    );
   };
 
   return (
     <div>
-      <form className={styles.form}>
+      <form
+        onSubmit={(e) => {
+          submitForm(e);
+        }}
+        className={styles.form}
+      >
         <h2 className="text text_type_main-medium">Регистрация</h2>
         <div className="mb-6 mt-6">
           <Input
@@ -66,13 +75,15 @@ const RegisterPage = () => {
           ></Input>
         </div>
         <div className={`${styles.button} mb-20`}>
-          <Button htmlType="submit" type="primary" size="large" onClick={submitForm}>
+          <Button htmlType="submit" type="primary" size="large">
             Зарегистрироваться
           </Button>
         </div>
       </form>
       <div></div>
-      <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
+      <p
+        className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}
+      >
         Уже зарегистрированы?&nbsp;
         <Link to="/login" className={styles.link}>
           Войти

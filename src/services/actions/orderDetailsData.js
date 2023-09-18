@@ -1,4 +1,5 @@
 import { apiOrder } from "../../utils/api";
+import { DELETE_ALL_INRGEDIENTS } from "./constructorIngredientsData";
 
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
@@ -13,6 +14,9 @@ export const getApiOrder = (ingredientsData) => {
           dispatch({
             numberData: data.order.number,
             type: GET_ORDER_SUCCESS,
+          });
+          dispatch({
+            type: DELETE_ALL_INRGEDIENTS,
           });
         } else {
           dispatch({

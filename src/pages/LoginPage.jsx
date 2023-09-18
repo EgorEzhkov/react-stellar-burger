@@ -1,5 +1,5 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
 import { logInUser } from "../services/actions/userData";
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <form className={styles.form}>
+      <form onSubmit={(e) => {logIn(e)}} className={styles.form}>
         <h2 className="text text_type_main-medium">Вход</h2>
         <div className="mb-6 mt-6">
           <Input
@@ -53,12 +53,11 @@ const LoginPage = () => {
           ></Input>
         </div>
         <div className={`${styles.button} mb-20`}>
-          <Button htmlType="submit" type="primary" size="large" onClick={logIn}>
+          <Button htmlType="submit" type="primary" size="large">
             Войти
           </Button>
         </div>
       </form>
-      <div></div>
       <p className={`text text_type_main-default text_color_inactive mb-4 ${styles.text}`}>
         Вы - новый пользователь?&nbsp;
         <Link to="/register" className={styles.link}>

@@ -27,6 +27,8 @@ function App() {
     dispatch(getUserData());
   }, [dispatch]);
   const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
+  const lala = useSelector((store) => store)
+  console.log(lala)
   return (
     <div className={styles.app}>
       <pre

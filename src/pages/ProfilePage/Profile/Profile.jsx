@@ -29,7 +29,7 @@ export const Profile = () => {
     <div className={styles.inputs}>
       <form
         onSubmit={(e) => {
-          return submit(e), setDisabledName(true), dispatch(postUserData(nameValue));
+          return submit(e), setDisabledName(true), dispatch(postUserData(loginValue, nameValue));
         }}
         className="mb-6"
       >
@@ -49,7 +49,7 @@ export const Profile = () => {
       </form>
       <form
         onSubmit={(e) => {
-          return submit(e), setDisabledLogin(true), dispatch(postUserData(loginValue));
+          return submit(e), setDisabledLogin(true), dispatch(postUserData(loginValue, nameValue));
         }}
         className="mb-6"
       >

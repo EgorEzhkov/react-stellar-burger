@@ -3,6 +3,7 @@ import {
   POST_INGREDIENT,
   NEW_ARRAY_INGREDIENT,
   MOVE_INGREDIENT,
+  DELETE_ALL_INRGEDIENTS,
 } from "../actions/constructorIngredientsData";
 import update from "immutability-helper";
 
@@ -30,6 +31,13 @@ export const consctructorIngredientsReduser = (
             (item, index) => index !== action.payload
           ),
         ],
+      };
+    }
+    case DELETE_ALL_INRGEDIENTS: {
+      return {
+        ...state,
+        ingredients: [],
+        bun: [],
       };
     }
     case NEW_ARRAY_INGREDIENT: {

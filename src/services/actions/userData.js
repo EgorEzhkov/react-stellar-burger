@@ -1,4 +1,10 @@
-import { apiGetUser, apiUserLogIn, apiUserLogOut, apiUserReg } from "../../utils/api";
+import {
+  apiGetUser,
+  apiPostUser,
+  apiUserLogIn,
+  apiUserLogOut,
+  apiUserReg,
+} from "../../utils/api";
 
 export const REG_USER_SUCCESS = "GET_USER_SUCCESS";
 export const REG_USER_FAILED = "GET_USER_FAILED";
@@ -50,6 +56,8 @@ export const regUser = (email, password, name) => {
     apiUserReg(email, password, name)
       .then((res) => {
         if (res && res.success) {
+          localStorage.setItem("accessToken", res.accessToken);
+          localStorage.setItem("refreshToken", res.refreshToken);
           dispatch({
             type: REG_USER_SUCCESS,
             userDataReg: res,
@@ -117,9 +125,8 @@ export const logOutUser = () => {
 export const postUserData = (login, name) => {
   return function (dispatch) {
     dispatch({ type: POST_USER_DATA_REQUEST });
-    apiGetUser(login, name)
+    apiPostUser(login, name)
       .then((res) => {
-        console.log(res)
         if (res && res.success) {
           dispatch({
             type: POST_USER_DATA_SUCCESS,
@@ -131,8 +138,9 @@ export const postUserData = (login, name) => {
           });
         }
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch({ type: POST_USER_DATA_FAILED });
+        console.log(err);
       });
   };
 };

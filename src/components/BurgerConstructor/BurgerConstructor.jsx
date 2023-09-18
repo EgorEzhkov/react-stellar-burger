@@ -20,7 +20,9 @@ function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.userData.isAuthenticated);
-  const dataIngredient = useSelector((store) => store.dataConstructor.ingredients);
+  const dataIngredient = useSelector(
+    (store) => store.dataConstructor.ingredients
+  );
   const dataBuns = useSelector((store) => store.dataConstructor.bun);
   const totalPrice = useMemo(() => {
     const dataConstructor = [...dataIngredient, ...dataBuns];
@@ -42,7 +44,7 @@ function BurgerConstructor({ handlePopupState }) {
     } else {
       setButtonState(true);
     }
-  }, [dataIngredient]);
+  }, [dataIngredient, dataBuns]);
 
   const [, ref] = useDrop({
     accept: "ingredient",

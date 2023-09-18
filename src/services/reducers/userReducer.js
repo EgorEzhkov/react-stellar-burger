@@ -18,8 +18,6 @@ import {
 } from "../actions/userData";
 
 const initialState = {
-  userReg: {},
-  userLogIn: {},
   userData: {},
   registerUserRequest: false,
   registerUserSuccess: false,
@@ -50,7 +48,7 @@ export const userReducer = (state = initialState, action) => {
         registerUserRequest: false,
         registerUserFailed: false,
         registerUserSuccess: true,
-        userReg: action.userDataReg,
+        userData: action.userDataReg,
         isAuthenticated: true,
       };
     }
@@ -74,7 +72,7 @@ export const userReducer = (state = initialState, action) => {
         logInUserRequest: false,
         logInUserFailed: false,
         logInUserSuccess: true,
-        userLogIn: action.userDataLogIn,
+        userData: action.userDataLogIn,
         isAuthenticated: true,
       };
     }
