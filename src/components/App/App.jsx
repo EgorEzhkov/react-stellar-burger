@@ -26,9 +26,9 @@ function App() {
     dispatch(getIngredients());
     dispatch(getUserData());
   }, [dispatch]);
-  const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
-  const lala = useSelector((store) => store)
-  console.log(lala)
+  const ingredientsRequest = useSelector(
+    (store) => store.ingredients.ingredientsRequest
+  );
   return (
     <div className={styles.app}>
       <pre
@@ -45,8 +45,14 @@ function App() {
             <main className={styles.main}>
               <Routes location={background || location}>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
-                <Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
+                <Route
+                  path="/login"
+                  element={<OnlyUnAuth component={<LoginPage />} />}
+                />
+                <Route
+                  path="/register"
+                  element={<OnlyUnAuth component={<RegisterPage />} />}
+                />
                 <Route
                   path="/forgot-password"
                   element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
@@ -55,11 +61,23 @@ function App() {
                   path="/reset-password"
                   element={<OnlyUnAuth component={<ResetPasswordPage />} />}
                 />
-                <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />}>
-                  <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
-                  <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
+                <Route
+                  path="/profile"
+                  element={<OnlyAuth component={<ProfilePage />} />}
+                >
+                  <Route
+                    path="user"
+                    element={<OnlyAuth component={<Profile />} />}
+                  ></Route>
+                  <Route
+                    path="orders"
+                    element={<OnlyAuth component={<Orders />} />}
+                  ></Route>
                 </Route>
-                <Route path="/ingredients/:id" element={<IngredientDetails />}></Route>
+                <Route
+                  path="/ingredients/:id"
+                  element={<IngredientDetails />}
+                ></Route>
               </Routes>
               {background && (
                 <Routes>
