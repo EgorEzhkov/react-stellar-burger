@@ -57,9 +57,9 @@
       "last 1 safari version"
     ]
   },
-  "description": "",
+  "description": "- Redux\r - React-redux\r - React-dnd",
   "main": "index.js",
   "author": "",
   "license": "ISC",
-  "homepage": "./"
+  "homepage": "http://./"
 }
