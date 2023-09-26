@@ -15,13 +15,15 @@ import {
 } from "../../services/actions/constructorIngredientsData";
 import { ConstructorElements } from "./ConstructorElements/ConstructorElements";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 function BurgerConstructor({ handlePopupState }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userData = useSelector((store) => store.userData.isAuthenticated);
   const dataIngredient = useSelector(
     (store) => store.dataConstructor.ingredients
   );
   const dataBuns = useSelector((store) => store.dataConstructor.bun);
-
   const totalPrice = useMemo(() => {
     const dataConstructor = [...dataIngredient, ...dataBuns];
     return dataConstructor.reduce((accumulator, item) => {
@@ -37,26 +39,31 @@ function BurgerConstructor({ handlePopupState }) {
   const [buttonState, setButtonState] = useState(false);
 
   useEffect(() => {
-    if (dataIngredient.length > 0) {
+    if (dataIngredient.length > 0 && dataBuns.length > 0) {
       setButtonState(false);
     } else {
       setButtonState(true);
     }
-  }, [dataIngredient]);
+  }, [dataIngredient, dataBuns]);
 
   const [, ref] = useDrop({
     accept: "ingredient",
     drop(item) {
-      dispatch(postIngredient({...item, uniqueId: uuidv4()}));
+      dispatch(postIngredient({ ...item, uniqueId: uuidv4() }));
     },
   });
 
+  const onClickButton = () => {
+    if (userData) {
+      apiOrderData(handlePopupState, dataIngredient);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <>
-      <div
-        className={`mt-25 mb-10 ml-10 ${styles.container}`}
-        ref={ref}
-      >
+      <div className={`mt-25 mb-10 ml-10 ${styles.container}`} ref={ref}>
         <div className={styles.constructorElementContainer}>
           {dataBuns.length > 0 ? (
             <ConstructorElement
@@ -117,7 +124,7 @@ function BurgerConstructor({ handlePopupState }) {
           <CurrencyIcon />
         </p>
         <Button
-          onClick={() => apiOrderData(handlePopupState, dataIngredient)}
+          onClick={() => onClickButton()}
           htmlType="button"
           type="primary"
           size="large"

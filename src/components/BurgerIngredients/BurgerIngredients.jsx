@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import {
-  Tab,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerIngredients.module.css";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { useDrag } from "react-dnd";
 import { Ingredient } from "./Ingredient/Ingredient";
-function BurgerIngredients({ setPopupOpen }) {
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+function BurgerIngredients() {
   const data = useSelector((store) => store.ingredients.ingredients);
+  const location = useLocation();
   const [current, setCurrent] = React.useState("Булки");
   const setTab = (tab) => {
     setCurrent(tab);
@@ -31,19 +30,10 @@ function BurgerIngredients({ setPopupOpen }) {
     }
   }, [bunsInView, sausesInView, mainInView]);
 
-  const [, ref] = useDrag({
-    type: "ingredient",
-    item: { data },
-  });
-
-  function list(el) {}
-
   return (
     <>
       <div>
-        <h1 className="text text_type_main-large ml-0 mr-0 mb-5 mt-10">
-          Соберите бургер
-        </h1>
+        <h1 className="text text_type_main-large ml-0 mr-0 mb-5 mt-10">Соберите бургер</h1>
         <div className={`mb-10 ${styles.tabContainer}`}>
           <Tab value="Булки" active={current === "Булки"} onClick={setTab}>
             Булки
@@ -64,9 +54,18 @@ function BurgerIngredients({ setPopupOpen }) {
           {data.map((el) => {
             if (el.type === "bun")
               return (
-                <ul className={styles.ingredientList} key={el._id}>
-                  <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
-                </ul>
+                <Link
+                  to={{
+                    pathname: `/ingredients/${el._id}`,
+                  }}
+                  state={{ background: location }}
+                  className={styles.ingredientList}
+                  key={el._id}
+                >
+                  <ul className={styles.ingredientList}>
+                    <Ingredient el={el}></Ingredient>
+                  </ul>
+                </Link>
               );
           })}
         </div>
@@ -77,9 +76,18 @@ function BurgerIngredients({ setPopupOpen }) {
           {data.map((el) => {
             if (el.type === "sauce")
               return (
-                <ul className={styles.ingredientList} key={el._id}>
-                  <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
-                </ul>
+                <Link
+                  to={{
+                    pathname: `/ingredients/${el._id}`,
+                  }}
+                  state={{ background: location }}
+                  className={styles.ingredientList}
+                  key={el._id}
+                >
+                  <ul className={styles.ingredientList} key={el._id}>
+                    <Ingredient el={el}></Ingredient>
+                  </ul>
+                </Link>
               );
           })}
         </div>
@@ -90,9 +98,18 @@ function BurgerIngredients({ setPopupOpen }) {
           {data.map((el) => {
             if (el.type === "main")
               return (
-                <ul className={styles.ingredientList} key={el._id}>
-                  <Ingredient el={el} setPopupOpen={setPopupOpen}></Ingredient>
-                </ul>
+                <Link
+                  to={{
+                    pathname: `/ingredients/${el._id}`,
+                  }}
+                  state={{ background: location }}
+                  className={styles.ingredientList}
+                  key={el._id}
+                >
+                  <ul className={styles.ingredientList} key={el._id}>
+                    <Ingredient el={el}></Ingredient>
+                  </ul>
+                </Link>
               );
           })}
         </div>
@@ -101,8 +118,6 @@ function BurgerIngredients({ setPopupOpen }) {
   );
 }
 
-BurgerIngredients.propTypes = {
-  setPopupOpen: PropTypes.func.isRequired,
-};
+
 
 export default BurgerIngredients;

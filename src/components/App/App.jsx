@@ -1,40 +1,34 @@
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import Modal from "../Modal/Modal";
-import { useEffect, useState } from "react";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DELETE_INFO_INGREDIENT } from "../../services/actions/infoIngredientData";
+import HomePage from "../../pages/HomePage";
+import LoginPage from "../../pages/LoginPage";
+import RegisterPage from "../../pages/RegisterPage";
+import ForgotPasswordPage from "../../pages/ForgotPasswordPage";
+import ResetPasswordPage from "../../pages/ResetPasswordPage";
+import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
+import { getUserData } from "../../services/actions/userData";
+import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
+import { Profile } from "../../pages/ProfilePage/Profile/Profile";
+import { Orders } from "../../pages/ProfilePage/Orders/Orders";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 function App() {
-  const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState(false);
-  const [ingredientDetailsPopupOpen, setIngredientDetailsPopupOpen] =
-    useState(false);
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getUserData());
   }, [dispatch]);
-
   const ingredientsRequest = useSelector(
     (store) => store.ingredients.ingredientsRequest
   );
-
-  const closeIngredientsPopup = () => {
-    setIngredientDetailsPopupOpen(false);
-    dispatch({ type: DELETE_INFO_INGREDIENT });
-  };
-
-  const closeOrderPopup = () => {
-    setOrderDetalsPopupOpen(false);
-  };
-
   return (
     <div className={styles.app}>
       <pre
@@ -49,29 +43,60 @@ function App() {
           <>
             <AppHeader />
             <main className={styles.main}>
-              <DndProvider backend={HTML5Backend}>
-                <div className={styles.div}>
-                  <BurgerIngredients
-                    setPopupOpen={setIngredientDetailsPopupOpen}
-                  />
-                </div>
-                <div>
-                  <BurgerConstructor
-                    handlePopupState={setOrderDetalsPopupOpen}
-                  />
-                </div>
-              </DndProvider>
+              <Routes location={background || location}>
+                <Route path="/" element={<HomePage />} />
+                <Route
+                  path="/login"
+                  element={<OnlyUnAuth component={<LoginPage />} />}
+                />
+                <Route
+                  path="/register"
+                  element={<OnlyUnAuth component={<RegisterPage />} />}
+                />
+                <Route
+                  path="/forgot-password"
+                  element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+                />
+                <Route
+                  path="/reset-password"
+                  element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+                />
+                <Route
+                  path="/profile"
+                  element={<OnlyAuth component={<ProfilePage />} />}
+                >
+                  <Route
+                    path="user"
+                    element={<OnlyAuth component={<Profile />} />}
+                  ></Route>
+                  <Route
+                    path="orders"
+                    element={<OnlyAuth component={<Orders />} />}
+                  ></Route>
+                </Route>
+                <Route
+                  path="/ingredients/:id"
+                  element={<IngredientDetails />}
+                ></Route>
+              </Routes>
+              {background && (
+                <Routes>
+                  {}
+                  <Route
+                    path="/ingredients/:id"
+                    element={
+                      <Modal
+                        handlePopupClose={() => {
+                          navigate(-1);
+                        }}
+                      >
+                        <IngredientDetails />
+                      </Modal>
+                    }
+                  ></Route>
+                </Routes>
+              )}
             </main>
-            {orderDetalsPopupOpen && (
-              <Modal handlePopupClose={closeOrderPopup}>
-                <OrderDetails />
-              </Modal>
-            )}
-            {ingredientDetailsPopupOpen && (
-              <Modal handlePopupClose={closeIngredientsPopup}>
-                <IngredientDetails />
-              </Modal>
-            )}
           </>
         )}
       </pre>
