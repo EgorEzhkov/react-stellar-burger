@@ -1,0 +1,54 @@
+.section {
+  display: flex;
+  justify-content: none;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.scroll {
+  height: 770px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+}
+
+.listElement {
+  margin-bottom: 16px;
+}
+
+.listElement:last-of-type {
+  margin-bottom: 0px;
+}
+
+.prepared {
+  display: flex;
+  flex-direction: column;
+  color: #00cccc;
+  gap: 8px;
+}
+
+.atWork {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scoreboard {
+  display: flex;
+  flex-direction: row;
+}
+
+.scoreboardElement {
+  width: 273px;
+}
+
+.number {
+  text-shadow: 0 0 50px #4c4cff;
+}

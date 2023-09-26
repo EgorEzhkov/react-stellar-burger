@@ -13,7 +13,7 @@ function AppHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <NavLink to="/" href="#" className={`mt-4 mb-4 mr-2 pt-4 pb-4 ${styles.element}`}>
+        <NavLink to="/" className={`mt-4 mb-4 mr-2 pt-4 pb-4 ${styles.element}`}>
           {location.pathname === "/" ? (
             <>
               <BurgerIcon type="primary" />
@@ -28,9 +28,20 @@ function AppHeader() {
             </>
           )}
         </NavLink>
-        <NavLink href="#" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
-          <ListIcon type="secondary" />
-          <p className="text text_type_main-default ml-2 mr-5">Лента заказов</p>
+        <NavLink to="/feed" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
+          {location.pathname === "/feed" ? (
+            <>
+              <ListIcon type="primary" />
+              <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>
+                Лента заказов
+              </p>
+            </>
+          ) : (
+            <>
+              <ListIcon type="secondary" />
+              <p className="text text_type_main-default ml-2 mr-5">Лента заказов</p>
+            </>
+          )}
         </NavLink>
       </div>
       <div className={styles.logo}>

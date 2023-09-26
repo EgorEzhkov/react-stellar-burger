@@ -1,0 +1,29 @@
+.listElement {
+  width: 585px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.04);
+  background-color: rgba(28, 28, 33, 1);
+  border-radius: 40px;
+  padding: 24px;
+  margin-bottom: 123px;
+}
+
+.listElement:last-of-type {
+  margin-bottom: 0px;
+}
+
+.numberAndTime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imgAndPrice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+}
