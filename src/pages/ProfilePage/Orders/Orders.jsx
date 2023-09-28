@@ -33,8 +33,8 @@ export const Orders = () => {
       <ul className={`${styles.list} ${styles.scroll} custom-scroll mr-15`}>
         {array.map((el, index) => {
           return (
-            <li className={styles.li}>
-              <ListElement props={el} key={index} />
+            <li key={index} className={styles.li}>
+              <ListElement props={el} />
             </li>
           );
         })}

@@ -17,6 +17,7 @@ import { Orders } from "../../pages/ProfilePage/Orders/Orders";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import FeedPage from "../../pages/FeedPage/FeedPage";
+import FeedOrderDetails from "../../pages/FeedOrderDetails/FeedOrderDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ function App() {
     dispatch(getUserData());
   }, [dispatch]);
   const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
+  const order = useSelector((store) => store);
+  console.log(order);
   return (
     <div className={styles.app}>
       <pre
@@ -58,9 +61,8 @@ function App() {
                   <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
                   <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
                 </Route>
-                <Route path="/feed" element={<FeedPage />}>
-                  <Route path="/feed/:id" />
-                </Route>
+                <Route path="/feed" element={<FeedPage />}></Route>
+                <Route path="/feed/:id" element={<FeedOrderDetails />} />
                 <Route path="/ingredients/:id" element={<IngredientDetails />}></Route>
               </Routes>
               {background && (

@@ -1,0 +1,66 @@
+.list {
+  list-style: none;
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+.scroll {
+  height: 320px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.main {
+  min-width: 640px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 51px;
+}
+
+.orderNumber {
+  text-align: center;
+}
+
+.listElement {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.listElement:last-of-type {
+  margin-bottom: 0;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #801ab2;
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+}
+
+.imgAndName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.timeAndTotalPrice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.totalPrice {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

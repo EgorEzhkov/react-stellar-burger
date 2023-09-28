@@ -21,6 +21,8 @@
 
 .listElement {
   margin-bottom: 16px;
+  text-decoration: none;
+  color: white;
 }
 
 .listElement:last-of-type {
@@ -51,4 +53,9 @@
 
 .number {
   text-shadow: 0 0 50px #4c4cff;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
 }

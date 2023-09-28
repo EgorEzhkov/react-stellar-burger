@@ -1,6 +1,6 @@
 import styles from "./FeedPage.module.css";
 import ListElement from "./ListElement/ListElement";
-
+import { Link } from "react-router-dom";
 const FeedPage = () => {
   const props = {
     name: "Death Star Starship Main бургер",
@@ -8,6 +8,7 @@ const FeedPage = () => {
     orderNumber: "#3213",
     time: "Сегодня, 16:20 i-GMT+3",
     img: "Тут будут картинки",
+    id: "3213213213",
   };
 
   const atWork = [42314, 432, 4321, 4324, 3421];
@@ -21,8 +22,11 @@ const FeedPage = () => {
       <main className={styles.main}>
         <ul className={`${styles.scroll} custom-scroll mr-15`}>
           <li className={styles.listElement}>
-            <ListElement props={props} />
+            <Link to={{ pathname: `/feed/${props.id}`}} className={styles.link}>
+              <ListElement props={props} />
+            </Link>
           </li>
+
           <li className={styles.listElement}>
             <ListElement props={props} />
           </li>
@@ -49,19 +53,27 @@ const FeedPage = () => {
           <div className={`mb-15 ${styles.scoreboard}`}>
             <div className={styles.scoreboardElement}>
               <h2 className="text text_type_main-medium mb-6">Готовы:</h2>
-              <p className={`text text_type_digits-default ${styles.prepared}`}>
-                {prepared.map((el) => {
-                  return <p className={`text ${styles.columnNumber}`}>{el}</p>;
+              <div className={`text text_type_digits-default ${styles.prepared}`}>
+                {prepared.map((el, index) => {
+                  return (
+                    <p key={index} className={`text ${styles.columnNumber}`}>
+                      {el}
+                    </p>
+                  );
                 })}
-              </p>
+              </div>
             </div>
             <div>
               <h2 className="text text_type_main-medium mb-6">В работе:</h2>
-              <p className={`text text_type_digits-default ${styles.atWork}`}>
-                {atWork.map((el) => {
-                  return <p className={`text ${styles.columnNumber}`}>{el}</p>;
+              <div className={`text text_type_digits-default ${styles.atWork}`}>
+                {atWork.map((el, index) => {
+                  return (
+                    <p key={index} className={`text ${styles.columnNumber}`}>
+                      {el}
+                    </p>
+                  );
                 })}
-              </p>
+              </div>
             </div>
           </div>
           <div className="mb-15">
