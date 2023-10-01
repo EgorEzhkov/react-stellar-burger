@@ -10,3 +10,19 @@ export const usePasswordShow = () => {
   };
   return { type, icon, showPassword };
 };
+
+export const wsActionsCreater = (
+  connectStart,
+  onOpen,
+  onMessage,
+  onClose,
+  onError,
+  connectStop
+) => ({
+  connectStart: connectStart,
+  onOpen: onOpen,
+  onMessage: onMessage,
+  onClose: onClose,
+  onError: onError,
+  connectStop: connectStop,
+});

@@ -1,13 +1,19 @@
 import styles from "./FeedPage.module.css";
 import ListElement from "./ListElement/ListElement";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  wsOrdersFeedConnectionMessage,
+  wsOrdersFeedConnectionStart,
+  WS_ORDERS_FEED_GET_MESSAGE,
+} from "../../services/actions/wsOrdersFeedData";
 const FeedPage = () => {
   const props = {
     name: "Death Star Starship Main бургер",
     price: 3213,
     orderNumber: "#3213",
     time: "Сегодня, 16:20 i-GMT+3",
-    img: "Тут будут картинки",
     id: "3213213213",
   };
 
@@ -15,6 +21,13 @@ const FeedPage = () => {
   const prepared = [4314, 4532, 4651, 654, 6867, 2435, 87568];
   const readyAllTime = "43124";
   const readyToDay = "32";
+  const location = useLocation();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(wsOrdersFeedConnectionStart("wss://norma.nomoreparties.space/orders/all"));
+  }, [dispatch]);
 
   return (
     <section className={styles.section}>
@@ -22,7 +35,11 @@ const FeedPage = () => {
       <main className={styles.main}>
         <ul className={`${styles.scroll} custom-scroll mr-15`}>
           <li className={styles.listElement}>
-            <Link to={{ pathname: `/feed/${props.id}`}} className={styles.link}>
+            <Link
+              to={{ pathname: `/feed/${props.id}` }}
+              state={{ background: location }}
+              className={styles.link}
+            >
               <ListElement props={props} />
             </Link>
           </li>

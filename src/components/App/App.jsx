@@ -61,13 +61,16 @@ function App() {
                   <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
                   <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
                 </Route>
+                <Route
+                  path="/profile/orders/:id"
+                  element={<OnlyAuth component={<FeedOrderDetails />} />}
+                ></Route>
                 <Route path="/feed" element={<FeedPage />}></Route>
                 <Route path="/feed/:id" element={<FeedOrderDetails />} />
                 <Route path="/ingredients/:id" element={<IngredientDetails />}></Route>
               </Routes>
               {background && (
                 <Routes>
-                  {}
                   <Route
                     path="/ingredients/:id"
                     element={
@@ -78,6 +81,34 @@ function App() {
                       >
                         <IngredientDetails />
                       </Modal>
+                    }
+                  ></Route>
+                  <Route
+                    path="/feed/:id"
+                    element={
+                      <Modal
+                        handlePopupClose={() => {
+                          navigate(-1);
+                        }}
+                      >
+                        <FeedOrderDetails />
+                      </Modal>
+                    }
+                  ></Route>
+                  <Route
+                    path="/profile/orders/:id"
+                    element={
+                      <OnlyAuth
+                        component={
+                          <Modal
+                            handlePopupClose={() => {
+                              navigate(-1);
+                            }}
+                          >
+                            <FeedOrderDetails />
+                          </Modal>
+                        }
+                      />
                     }
                   ></Route>
                 </Routes>
