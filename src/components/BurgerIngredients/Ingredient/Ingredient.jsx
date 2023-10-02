@@ -7,11 +7,8 @@ import { useMemo } from "react";
 import PropTypes from "prop-types";
 
 export const Ingredient = ({ el }) => {
-  const dispatch = useDispatch();
-  const data = useSelector((store) => store.ingredients.ingredients);
   const dataConstructor = useSelector((store) => store.dataConstructor.ingredients);
   const dataBun = useSelector((store) => store.dataConstructor.bun);
-
 
   const count = useMemo(() => {
     const ingredients = [...dataConstructor, ...dataBun];

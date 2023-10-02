@@ -3,8 +3,8 @@ const socketMiddleware = (wsActions) => (store) => {
   return (next) => (action) => {
     const { dispatch } = store;
     const { type, payload } = action;
-
-    if (type === wsActions.connectStart) {
+ 
+    if (type === wsActions.connectStart().type) {
       socket = new WebSocket(payload);
     }
 

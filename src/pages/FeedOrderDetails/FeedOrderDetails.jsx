@@ -1,49 +1,54 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./FeedOrderDetails.module.css";
-
+import { wsOrdersFeedConnectionStart } from "../../services/actions/wsOrdersFeedData";
 const FeedOrderDetails = () => {
   const { id } = useParams();
-  console.log(id);
 
-  const img = useSelector((store) => store.ingredients.ingredients[5]);
+  const ingredientsData = useSelector((store) => store.ingredients.ingredients);
+  const orders = useSelector((store) => store.wsOrdersFeed.orders);
 
-  const props = {
-    name: "Death Star Starship Main бургер",
-    price: 3213,
-    orderNumber: "#3213",
-    time: "Сегодня, 16:20 i-GMT+3",
-    img: "Тут будут картинки",
-    status: "Выполнен",
-    totalPrice: "213213",
-  };
+  const orderElement = useMemo(() => {
+    return orders.find((el) => {
+      return el._id === id;
+    });
+  }, [orders]);
 
-  const ingredients = [
-    { img: "fds", name: "nfdsaffdsafhgfdhgdshfdgsafdsagdasame", price: "321" },
-    { img: "img2", name: "name2", price: "3212" },
-    { img: "img3", name: "name3", price: "3213" },
-    { img: "img4", name: "name4", price: "32134" },
-    { img: "img5", name: "name5", price: "32135" },
-    { img: "img34", name: "name43", price: "32113" },
-    { img: "ifg3", name: "namef3", price: "3f213" },
-  ];
+  const ingredients = useMemo(() => {
+    return orderElement.ingredients.map((ingredient) => {
+      return ingredientsData.find((el) => {
+        return el._id === ingredient;
+      });
+    });
+  }, [orderElement, ingredientsData]);
+
+  const totalPrice = useMemo(() => {
+    return ingredients.reduce((accumulator, item) => {
+      return item.price + accumulator;
+    }, 0);
+  }, [ingredients]);
+
+  const { createdAt, name, number, status } = orderElement;
 
   return (
     <main className={`${styles.main}`}>
-      <p className={`${styles.orderNumber} text text_type_digits-default mb-10`}>
-        {props.orderNumber}
-      </p>
+      <p className={`${styles.orderNumber} text text_type_digits-default mb-10`}>#{number}</p>
 
-      <h1 className="text text_type_main-medium mb-3">{props.name}</h1>
-      <p className="mb-15 text text_type_main-default">{props.status}</p>
+      <h1 className="text text_type_main-medium mb-3">{name}</h1>
+      {status === "done" && (
+        <p className={`mb-15 text text_type_main-default ${styles.textActive}`}>Выполнен</p>
+      )}
+      {status === "created" && <p className="mb-15 text text_type_main-default">Создан</p>}
+      {status === "pending" && <p className="mb-15 text text_type_main-default">Готовится</p>}
       <h2 className="mb-6 text text_type_main-medium">Состав:</h2>
       <ul className={`${styles.list} ${styles.scroll} custom-scroll`}>
         {ingredients.map((el, index) => {
           return (
             <li className={`${styles.listElement} mr-6`} key={index}>
               <div className={styles.imgAndName}>
-                {img && <img src={img.image} className={`${styles.image} mr-4`} />}
+                <img src={el.image} className={`${styles.image} mr-4`} />
                 <p className={`text text_type_main-default ${styles.name}`}>{el.name}</p>
               </div>
               <div className={styles.price}>
@@ -55,9 +60,9 @@ const FeedOrderDetails = () => {
         })}
       </ul>
       <div className={styles.timeAndTotalPrice}>
-        <p className="text text_type_main-default text_color_inactive">{props.time}</p>
+        <p className="text text_type_main-default text_color_inactive">{createdAt}</p>
         <div className={styles.totalPrice}>
-          <p className="text text_type_digits-default mr-2">{props.totalPrice}</p>
+          <p className="text text_type_digits-default mr-2">{totalPrice}</p>
           <CurrencyIcon />
         </div>
       </div>

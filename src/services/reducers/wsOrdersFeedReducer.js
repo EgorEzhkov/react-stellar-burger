@@ -10,7 +10,11 @@ import {
 const initialState = {
   wsConnected: false,
   messages: [],
+  orders: [],
+  total: 0,
+  totalToday: 0,
   error: undefined,
+  wsConnectionRequest: false,
 };
 
 export const wsOrdersFeedReducer = (state = initialState, action) => {
@@ -19,7 +23,14 @@ export const wsOrdersFeedReducer = (state = initialState, action) => {
       return {
         ...state,
         error: undefined,
+        wsConnectionRequest: true,
+      };
+    case WS_ORDERS_FEED_CONNECTION_SUCCESS:
+      return {
+        ...state,
+        error: undefined,
         wsConnected: true,
+        wsConnectionRequest: false,
       };
 
     case WS_ORDERS_FEED_CONNECTION_ERROR:
@@ -41,6 +52,9 @@ export const wsOrdersFeedReducer = (state = initialState, action) => {
         ...state,
         error: undefined,
         messages: [action.payload],
+        orders: action.payload.orders,
+        total: action.payload.total,
+        totalToday: action.payload.totalToday,
       };
     default:
       return state;

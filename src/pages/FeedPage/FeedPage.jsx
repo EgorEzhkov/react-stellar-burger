@@ -3,27 +3,15 @@ import ListElement from "./ListElement/ListElement";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  wsOrdersFeedConnectionMessage,
-  wsOrdersFeedConnectionStart,
-  WS_ORDERS_FEED_GET_MESSAGE,
-} from "../../services/actions/wsOrdersFeedData";
+import { wsOrdersFeedConnectionStart } from "../../services/actions/wsOrdersFeedData";
 const FeedPage = () => {
-  const props = {
-    name: "Death Star Starship Main бургер",
-    price: 3213,
-    orderNumber: "#3213",
-    time: "Сегодня, 16:20 i-GMT+3",
-    id: "3213213213",
-  };
-
   const atWork = [42314, 432, 4321, 4324, 3421];
   const prepared = [4314, 4532, 4651, 654, 6867, 2435, 87568];
-  const readyAllTime = "43124";
-  const readyToDay = "32";
   const location = useLocation();
 
   const dispatch = useDispatch();
+
+  const { orders, totalToday, total } = useSelector((store) => store.wsOrdersFeed);
 
   useEffect(() => {
     dispatch(wsOrdersFeedConnectionStart("wss://norma.nomoreparties.space/orders/all"));
@@ -34,37 +22,20 @@ const FeedPage = () => {
       <h1 className="text text_type_main-large mt-10 mb-4">Лента заказов</h1>
       <main className={styles.main}>
         <ul className={`${styles.scroll} custom-scroll mr-15`}>
-          <li className={styles.listElement}>
-            <Link
-              to={{ pathname: `/feed/${props.id}` }}
-              state={{ background: location }}
-              className={styles.link}
-            >
-              <ListElement props={props} />
-            </Link>
-          </li>
-
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
-          <li className={styles.listElement}>
-            <ListElement props={props} />
-          </li>
+          {orders.length > 0 &&
+            orders.map((el, index) => {
+              return (
+                <li className={styles.listElement} key={index}>
+                  <Link
+                    to={{ pathname: `/feed/${el._id}` }}
+                    state={{ background: location }}
+                    className={styles.link}
+                  >
+                    <ListElement props={el} />
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
         <div>
           <div className={`mb-15 ${styles.scoreboard}`}>
@@ -95,11 +66,11 @@ const FeedPage = () => {
           </div>
           <div className="mb-15">
             <h2 className="text text_type_main-medium">Выполнено за все время:</h2>
-            <p className={`text text_type_digits-large ${styles.number}`}>{readyAllTime}</p>
+            <p className={`text text_type_digits-large ${styles.number}`}>{total}</p>
           </div>
           <div>
             <h2 className="text text_type_main-medium">Выполнено за сегодня:</h2>
-            <p className={`text text_type_digits-large ${styles.number}`}>{readyToDay}</p>
+            <p className={`text text_type_digits-large ${styles.number}`}>{totalToday}</p>
           </div>
         </div>
       </main>

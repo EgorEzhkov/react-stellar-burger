@@ -8,7 +8,7 @@ export const WS_ORDERS_FEED_GET_MESSAGE = "WS_ORDERS_FEED_GET_MESSAGE";
 
 export const WS_ORDERS_FEED_CONNECTION_STOP = "WS_ORDERS_FEED_CONNECTION_STOP";
 
-export const wsOrdersFeedConnectionStart = (url) => ({
+export const wsOrdersFeedConnectionStart = url => ({
   type: WS_ORDERS_FEED_CONNECTION_START,
   payload: url,
 });
