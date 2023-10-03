@@ -24,13 +24,14 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getUserData());
   }, [dispatch]);
+
   const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
-  const order = useSelector((store) => store);
-  console.log(order);
+
   return (
     <div className={styles.app}>
       <pre

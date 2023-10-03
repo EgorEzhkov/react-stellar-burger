@@ -34,12 +34,19 @@
   flex-direction: column;
   color: #00cccc;
   gap: 8px;
+  column-gap: 25px;
+  height: 320px;
+  flex-wrap: wrap;
 }
 
 .atWork {
   display: flex;
   flex-direction: column;
+  color: white;
   gap: 8px;
+  column-gap: 25px;
+  height: 320px;
+  flex-wrap: wrap;
 }
 
 .scoreboard {
@@ -48,7 +55,7 @@
 }
 
 .scoreboardElement {
-  width: 273px;
+  width: 275px;
 }
 
 .number {
@@ -58,4 +65,8 @@
 .link {
   text-decoration: none;
   color: white;
+}
+
+.columnNumber {
+  width: fit-content;
 }

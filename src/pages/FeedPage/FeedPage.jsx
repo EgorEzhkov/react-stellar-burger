@@ -5,19 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { wsOrdersFeedConnectionStart } from "../../services/actions/wsOrdersFeedData";
 const FeedPage = () => {
-  const atWork = [42314, 432, 4321, 4324, 3421];
-  const prepared = [4314, 4532, 4651, 654, 6867, 2435, 87568];
-  const location = useLocation();
-
   const dispatch = useDispatch();
-
-  const { orders, totalToday, total } = useSelector((store) => store.wsOrdersFeed);
 
   useEffect(() => {
     dispatch(wsOrdersFeedConnectionStart("wss://norma.nomoreparties.space/orders/all"));
   }, [dispatch]);
 
-  return (
+  const location = useLocation();
+
+  const { orders, totalToday, total } = useSelector((store) => store.wsOrdersFeed);
+
+  return orders.length > 1 ? (
     <section className={styles.section}>
       <h1 className="text text_type_main-large mt-10 mb-4">Лента заказов</h1>
       <main className={styles.main}>
@@ -42,11 +40,14 @@ const FeedPage = () => {
             <div className={styles.scoreboardElement}>
               <h2 className="text text_type_main-medium mb-6">Готовы:</h2>
               <div className={`text text_type_digits-default ${styles.prepared}`}>
-                {prepared.map((el, index) => {
+                {orders.map((el, index) => {
                   return (
-                    <p key={index} className={`text ${styles.columnNumber}`}>
-                      {el}
-                    </p>
+                    index <= 19 &&
+                    el.status === "done" && (
+                      <p key={index} className={`text ${styles.columnNumber}`}>
+                        {el.number}
+                      </p>
+                    )
                   );
                 })}
               </div>
@@ -54,11 +55,14 @@ const FeedPage = () => {
             <div>
               <h2 className="text text_type_main-medium mb-6">В работе:</h2>
               <div className={`text text_type_digits-default ${styles.atWork}`}>
-                {atWork.map((el, index) => {
+                {orders.map((el, index) => {
                   return (
-                    <p key={index} className={`text ${styles.columnNumber}`}>
-                      {el}
-                    </p>
+                    index <= 19 &&
+                    el.status === "pending" && (
+                      <p key={index} className={`text ${styles.columnNumber}`}>
+                        {el.number}
+                      </p>
+                    )
                   );
                 })}
               </div>
@@ -75,6 +79,8 @@ const FeedPage = () => {
         </div>
       </main>
     </section>
+  ) : (
+    <h1>Загрузка</h1>
   );
 };
 

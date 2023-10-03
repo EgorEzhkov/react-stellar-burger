@@ -29,7 +29,7 @@ function AppHeader() {
           )}
         </NavLink>
         <NavLink to="/feed" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
-          {location.pathname === "/feed" ? (
+          {location.pathname.includes("/feed") ? (
             <>
               <ListIcon type="primary" />
               <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>
