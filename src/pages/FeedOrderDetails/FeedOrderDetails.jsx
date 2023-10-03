@@ -40,7 +40,7 @@ const FeedOrderDetails = () => {
         #{orderElement.number}
       </p>
 
-      <h1 className="text text_type_main-medium mb-3">{orderElement.name}</h1>
+      <h1 className={`text text_type_main-medium mb-3 ${styles.textWrap}`}>{orderElement.name}</h1>
       {orderElement.status === "done" && (
         <p className={`mb-15 text text_type_main-default ${styles.textActive}`}>Выполнен</p>
       )}
