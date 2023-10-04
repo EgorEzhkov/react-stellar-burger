@@ -3,12 +3,19 @@ import ListElement from "./ListElement/ListElement";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { wsOrdersFeedConnectionStart } from "../../services/actions/wsOrdersFeedData";
+import {
+  wsOrdersFeedConnectionStart,
+  wsOrdersFeedConnectionStop,
+} from "../../services/actions/wsOrdersFeedData";
 const FeedPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(wsOrdersFeedConnectionStart("wss://norma.nomoreparties.space/orders/all"));
+
+    return () => {
+      dispatch(wsOrdersFeedConnectionStop());
+    };
   }, [dispatch]);
 
   const location = useLocation();

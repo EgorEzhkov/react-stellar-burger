@@ -1,6 +1,7 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { wsOrdersFeedActions } from "./actions/wsOrdersFeedData";
+import { wsProfileOrdersActions } from "./actions/wsProfileOrdersData";
 import socketMiddleware from "./middleware/socketMiddleware";
 import { rootReducer } from "./reducers/rootReducer";
 
@@ -11,5 +12,11 @@ const composeEnhancers =
 
 export const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsOrdersFeedActions)))
+  composeEnhancers(
+    applyMiddleware(
+      thunk,
+      socketMiddleware(wsOrdersFeedActions),
+      socketMiddleware(wsProfileOrdersActions)
+    )
+  )
 );
