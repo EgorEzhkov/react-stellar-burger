@@ -18,6 +18,7 @@ import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import FeedPage from "../../pages/FeedPage/FeedPage";
 import FeedOrderDetails from "../../pages/FeedOrderDetails/FeedOrderDetails";
+import ProfileOrderDetails from "../../pages/ProfileOrderDetails/ProfileOrderDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ function App() {
                 </Route>
                 <Route
                   path="/profile/orders/:id"
-                  element={<OnlyAuth component={<FeedOrderDetails />} />}
+                  element={<OnlyAuth component={<ProfileOrderDetails />} />}
                 ></Route>
                 <Route path="/feed" element={<FeedPage />}></Route>
                 <Route path="/feed/:id" element={<FeedOrderDetails />} />
@@ -106,7 +107,7 @@ function App() {
                               navigate(-1);
                             }}
                           >
-                            <FeedOrderDetails />
+                            <ProfileOrderDetails />
                           </Modal>
                         }
                       />

@@ -2,21 +2,25 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./FeedOrderDetails.module.css";
+import styles from "./ProfileOrderDetails.module.css";
 import {
-  wsOrdersFeedConnectionStart,
-  wsOrdersFeedConnectionStop,
-} from "../../services/actions/wsOrdersFeedData";
-const FeedOrderDetails = () => {
+  wsProfileOrdersConnectionStop,
+  wsProfileOrdersConnectionStart,
+} from "../../services/actions/wsProfileOrdersData";
+const ProfileOrderDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
-  const orders = useSelector((store) => store.wsOrdersFeed.orders);
+  const orders = useSelector((store) => store.wsProfileOrders.orders);
 
   useEffect(() => {
-    dispatch(wsOrdersFeedConnectionStart("wss://norma.nomoreparties.space/orders/all"));
+    const token = localStorage.getItem("accessToken").replace("Bearer ", "");
+    dispatch(
+      wsProfileOrdersConnectionStart(`wss://norma.nomoreparties.space/orders?token=${token}`)
+    );
+
     return () => {
-      dispatch(wsOrdersFeedConnectionStop());
+      dispatch(wsProfileOrdersConnectionStop());
     };
   }, [dispatch]);
 
@@ -86,4 +90,4 @@ const FeedOrderDetails = () => {
   );
 };
 
-export default FeedOrderDetails;
+export default ProfileOrderDetails;
