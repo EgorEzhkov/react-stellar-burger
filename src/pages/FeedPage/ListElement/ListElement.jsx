@@ -3,12 +3,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from "react-redux";
 const ListElement = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
-
   const elements = props.ingredients.map((ingredient) => {
-    return ingredientsData.find((el) => {
-      return el._id === ingredient;
+    return ingredientsData.filter((el) => {
+      return ingredient === el._id;
     });
   });
+
+  console.log(elements);
 
   const price = elements.reduce((accumulator, item) => {
     return item.price + accumulator;
@@ -24,7 +25,7 @@ const ListElement = ({ props }) => {
       <div className={styles.imgAndPrice}>
         {ingredientsData &&
           props.ingredients.map((idIngredient, number) => {
-            const element = ingredientsData.find((el) => {
+            const element = ingredientsData.filter((el) => {
               return el._id === idIngredient;
             });
             return (
