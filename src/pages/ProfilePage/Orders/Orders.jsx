@@ -1,8 +1,10 @@
 import styles from "./Orders.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { wsProfileOrdersConnectionStart } from "../../../services/actions/wsProfileOrdersData";
+import {
+  wsProfileOrdersConnectionStart,
+  wsProfileOrdersConnectionStop,
+} from "../../../services/actions/wsProfileOrdersData";
 import { useEffect } from "react";
 import ListElement from "./ListElement/ListElement";
 
@@ -15,7 +17,11 @@ export const Orders = () => {
     dispatch(
       wsProfileOrdersConnectionStart(`wss://norma.nomoreparties.space/orders?token=${token}`)
     );
-  }, [dispatch, orders]);
+
+    return () => {
+      dispatch(wsProfileOrdersConnectionStop());
+    };
+  }, [dispatch]);
 
   const location = useLocation();
 

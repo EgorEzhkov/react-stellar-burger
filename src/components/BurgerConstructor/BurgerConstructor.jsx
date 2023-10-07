@@ -24,6 +24,7 @@ function BurgerConstructor({ handlePopupState }) {
     (store) => store.dataConstructor.ingredients
   );
   const dataBuns = useSelector((store) => store.dataConstructor.bun);
+  const burgerData = [dataBuns[0], ...dataIngredient, dataBuns[1]]
   const totalPrice = useMemo(() => {
     const dataConstructor = [...dataIngredient, ...dataBuns];
     return dataConstructor.reduce((accumulator, item) => {
@@ -55,7 +56,7 @@ function BurgerConstructor({ handlePopupState }) {
 
   const onClickButton = () => {
     if (userData) {
-      apiOrderData(handlePopupState, dataIngredient);
+      apiOrderData(handlePopupState, burgerData);
     } else {
       navigate("/login");
     }

@@ -1,17 +1,19 @@
 import styles from "./ListElement.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 const ListElement = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
-  const elements = props.ingredients.map((ingredient) => {
+
+  const elements = props.ingredients.map((ingredient, index) => {
     return ingredientsData.find((el) => {
-      return ingredient === el._id;
+      return el._id === ingredient;
     });
   });
 
-  console.log(elements);
+  const filterElements = elements.filter((e) => e != undefined);
 
-  const price = elements.reduce((accumulator, item) => {
+  const price = filterElements.reduce((accumulator, item) => {
     return item.price + accumulator;
   }, 0);
 
@@ -23,19 +25,16 @@ const ListElement = ({ props }) => {
       </div>
       <p className={`text text_type_main-medium mb-6 ${styles.name}`}>{props.name}</p>
       <div className={styles.imgAndPrice}>
-        {ingredientsData &&
-          props.ingredients.map((idIngredient, number) => {
-            const element = ingredientsData.find((el) => {
-              return el._id === idIngredient;
-            });
+        {filterElements &&
+          filterElements.map((idIngredient, number) => {
             return (
               number < 6 && (
                 <div
                   className={styles.imageContainer}
-                  data-count={`+${props.ingredients.slice(5).length}`}
+                  data-count={`+${filterElements.slice(5).length}`}
                   key={number}
                 >
-                  <img src={element.image} alt="Ингредиент" className={styles.image} />
+                  <img src={idIngredient.image} alt="Ингредиент" className={styles.image} />
                 </div>
               )
             );

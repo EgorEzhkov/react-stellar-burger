@@ -5,19 +5,19 @@ import styles from "./ListElement.module.css";
 const ListElement = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
 
-  const elements = props.ingredients.map((ingredient) => {
+  const elements = props.ingredients.map((ingredient, index) => {
     return ingredientsData.find((el) => {
       return el._id === ingredient;
     });
   });
 
-  const price = elements.reduce((accumulator, item) => {
+  const filterElements = elements.filter((e) => e != undefined);
+
+  const price = filterElements.reduce((accumulator, item) => {
     return item.price + accumulator;
   }, 0);
 
   const { createdAt, name, number, status } = props;
-
-  
 
   return (
     <div className={`ml-15 ${styles.listElement}`}>
@@ -32,16 +32,13 @@ const ListElement = ({ props }) => {
       {status === "created" && <p className="mb-6 text text_type_main-default">Создан</p>}
       {status === "pending" && <p className="mb-6 text text_type_main-default">Готовится</p>}
       <div className={styles.imgAndPrice}>
-        {ingredientsData &&
-          props.ingredients.map((idIngredient, number) => {
-            const element = ingredientsData.find((el) => {
-              return el._id === idIngredient;
-            });
+        {filterElements &&
+          filterElements.map((element, number) => {
             return (
               number < 6 && (
                 <div
                   className={styles.imageContainer}
-                  data-count={`+${props.ingredients.slice(5).length}`}
+                  data-count={`+${filterElements.slice(5).length}`}
                   key={number}
                 >
                   <img src={element.image} alt="Ингредиент" className={styles.image} />

@@ -22,8 +22,6 @@ const FeedPage = () => {
 
   const { orders, totalToday, total } = useSelector((store) => store.wsOrdersFeed);
 
-  console.log(orders)
-
   return orders.length > 0 ? (
     <section className={styles.section}>
       <h1 className="text text_type_main-large mt-10 mb-4">Лента заказов</h1>
