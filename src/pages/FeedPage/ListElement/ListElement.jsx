@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const ListElement = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
   const elements = props.ingredients.map((ingredient) => {
-    return ingredientsData.filter((el) => {
+    return ingredientsData.find((el) => {
       return ingredient === el._id;
     });
   });
@@ -25,7 +25,7 @@ const ListElement = ({ props }) => {
       <div className={styles.imgAndPrice}>
         {ingredientsData &&
           props.ingredients.map((idIngredient, number) => {
-            const element = ingredientsData.filter((el) => {
+            const element = ingredientsData.find((el) => {
               return el._id === idIngredient;
             });
             return (
