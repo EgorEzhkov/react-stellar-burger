@@ -1,0 +1,72 @@
+.section {
+  display: flex;
+  justify-content: none;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.scroll {
+  height: 770px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+}
+
+.listElement {
+  margin-bottom: 16px;
+  text-decoration: none;
+  color: white;
+}
+
+.listElement:last-of-type {
+  margin-bottom: 0px;
+}
+
+.prepared {
+  display: flex;
+  flex-direction: column;
+  color: #00cccc;
+  gap: 8px;
+  column-gap: 25px;
+  height: 320px;
+  flex-wrap: wrap;
+}
+
+.atWork {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  gap: 8px;
+  column-gap: 25px;
+  height: 320px;
+  flex-wrap: wrap;
+}
+
+.scoreboard {
+  display: flex;
+  flex-direction: row;
+}
+
+.scoreboardElement {
+  width: 275px;
+}
+
+.number {
+  text-shadow: 0 0 50px #4c4cff;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.columnNumber {
+  width: fit-content;
+}

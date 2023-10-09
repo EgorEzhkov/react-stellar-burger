@@ -38,11 +38,16 @@ export const ProfilePage = () => {
         <NavLink onClick={logOut} end className={styles.navLink}>
           Выход
         </NavLink>
-        {location.pathname === "/profile/user" ? (
+        {location.pathname === "/profile/user" && (
           <p className="text text_type_main-default text_color_inactive mt-20">
             В этом разделе вы можете изменить свои персональные данные
           </p>
-        ) : null}
+        )}
+        {location.pathname === "/profile/orders" && (
+          <p className="text text_type_main-default text_color_inactive mt-20">
+            В этом разделе вы можете просмотреть свою историю заказов
+          </p>
+        )}
       </nav>
       <main>
         <Outlet />

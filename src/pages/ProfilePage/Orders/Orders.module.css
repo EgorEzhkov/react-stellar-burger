@@ -1,0 +1,22 @@
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.scroll {
+  height: 770px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.li {
+  margin-bottom: 20px;
+}
