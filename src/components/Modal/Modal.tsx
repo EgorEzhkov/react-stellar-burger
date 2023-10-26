@@ -2,13 +2,17 @@ import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC, ReactElement } from "react";
+const modalPortal = document.getElementById("react-modals") as HTMLDivElement;
 
-const modalPortal = document.getElementById("react-modals");
-export default function Modal({ children, handlePopupClose }) {
+interface IProps {
+  childred: ReactElement;
+  handlePopupClose: Function;
+}
+
+const Modal: FC<IProps> = ({ children, handlePopupClose }) => {
   React.useEffect(() => {
-    const closePopup = (evt) => {
+    const closePopup = (evt: KeyboardEvent) => {
       if (evt.key === "Escape") {
         handlePopupClose();
       }
@@ -39,6 +43,5 @@ export default function Modal({ children, handlePopupClose }) {
   );
 }
 
-Modal.propTypes = {
-  handlePopupClose: PropTypes.func.isRequired,
-};
+export default Modal
+
