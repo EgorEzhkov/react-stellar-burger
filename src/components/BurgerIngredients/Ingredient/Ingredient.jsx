@@ -1,6 +1,5 @@
 import styles from "./Ingredient.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getInfoIngredient } from "../../../services/actions/infoIngredientData";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMemo } from "react";

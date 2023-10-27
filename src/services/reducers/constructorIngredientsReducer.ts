@@ -4,18 +4,21 @@ import {
   NEW_ARRAY_INGREDIENT,
   MOVE_INGREDIENT,
   DELETE_ALL_INRGEDIENTS,
+  TConstructorIngredientsActions,
 } from "../actions/constructorIngredientsData";
 import update from "immutability-helper";
 
-const initialState = {
+type TInitialState = {
+  ingredients: ReadonlyArray<object>;
+  bun: ReadonlyArray<object>;
+};
+
+const initialState: TInitialState = {
   ingredients: [],
   bun: [],
 };
 
-export const consctructorIngredientsReduser = (
-  state = initialState,
-  action
-) => {
+export const consctructorIngredientsReduser = (state = initialState, action: TConstructorIngredientsActions) => {
   switch (action.type) {
     case POST_INGREDIENT: {
       if (action.payload.type === "bun") {
@@ -26,11 +29,7 @@ export const consctructorIngredientsReduser = (
     case DELETE_INGREDIENT: {
       return {
         ...state,
-        ingredients: [
-          ...state.ingredients.filter(
-            (item, index) => index !== action.payload
-          ),
-        ],
+        ingredients: [...state.ingredients.filter((item, index) => index !== action.payload)],
       };
     }
     case DELETE_ALL_INRGEDIENTS: {
@@ -40,20 +39,16 @@ export const consctructorIngredientsReduser = (
         bun: [],
       };
     }
-    case NEW_ARRAY_INGREDIENT: {
-      return { ...state, ingredients: [action.payload] };
-    }
+    // case NEW_ARRAY_INGREDIENT: {
+    //   return { ...state, ingredients: [action.payload] };
+    // }
     case MOVE_INGREDIENT: {
       return {
         ...state,
         ingredients: update(state.ingredients, {
           $splice: [
             [action.payload.dragIndex, 1],
-            [
-              action.payload.hoverIndex,
-              0,
-              state.ingredients[action.payload.dragIndex],
-            ],
+            [action.payload.hoverIndex, 0, state.ingredients[action.payload.dragIndex]],
           ],
         }),
       };
