@@ -1,3 +1,4 @@
+import { TIngredient } from "../../types/types";
 import {
   DELETE_INGREDIENT,
   POST_INGREDIENT,
@@ -9,8 +10,8 @@ import {
 import update from "immutability-helper";
 
 type TInitialState = {
-  ingredients: ReadonlyArray<object>;
-  bun: ReadonlyArray<object>;
+  ingredients: ReadonlyArray<TIngredient>;
+  bun: ReadonlyArray<TIngredient>;
 };
 
 const initialState: TInitialState = {
@@ -18,7 +19,10 @@ const initialState: TInitialState = {
   bun: [],
 };
 
-export const consctructorIngredientsReduser = (state = initialState, action: TConstructorIngredientsActions) => {
+export const consctructorIngredientsReduser = (
+  state = initialState,
+  action: TConstructorIngredientsActions
+): TInitialState => {
   switch (action.type) {
     case POST_INGREDIENT: {
       if (action.payload.type === "bun") {
