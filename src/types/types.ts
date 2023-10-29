@@ -10,4 +10,5 @@ export type TIngredient = {
   readonly proteins: number;
   readonly type: string;
   readonly _id: string;
+  uniqueId?: string;
 };

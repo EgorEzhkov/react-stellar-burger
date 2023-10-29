@@ -1,9 +1,4 @@
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./AppHeader.module.css";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -17,9 +12,7 @@ function AppHeader() {
           {location.pathname === "/" ? (
             <>
               <BurgerIcon type="primary" />
-              <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>
-                Конструктор
-              </p>
+              <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>Конструктор</p>
             </>
           ) : (
             <>
@@ -32,9 +25,7 @@ function AppHeader() {
           {location.pathname.includes("/feed") ? (
             <>
               <ListIcon type="primary" />
-              <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>
-                Лента заказов
-              </p>
+              <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>Лента заказов</p>
             </>
           ) : (
             <>
@@ -52,9 +43,7 @@ function AppHeader() {
         {location.pathname.includes("/profile") ? (
           <>
             <ProfileIcon type="primary" />
-            <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>
-              Личный кабинет
-            </p>
+            <p className={`text text_type_main-default ml-2 mr-5 ${styles.navTextActive}`}>Личный кабинет</p>
           </>
         ) : (
           <>

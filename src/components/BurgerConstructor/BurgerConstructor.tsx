@@ -1,30 +1,30 @@
-import {
-  CurrencyIcon,
-  ConstructorElement,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
-import PropTypes from "prop-types";
-import { useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getApiOrder } from "../../services/actions/orderDetailsData";
 import { useDrop } from "react-dnd";
-import {
-  deleteIngredient,
-  postIngredient,
-} from "../../services/actions/constructorIngredientsData";
-import { ConstructorElements } from "./ConstructorElements/ConstructorElements";
+import { deleteIngredient, postIngredient } from "../../services/actions/constructorIngredientsData";
+import ConstructorElements from "./ConstructorElements/ConstructorElements";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-function BurgerConstructor({ handlePopupState }) {
+import { TIngredient } from "../../types/types";
+
+interface IProps {
+  handlePopupState: Function;
+}
+
+const BurgerConstructor: FC<IProps> = ({ handlePopupState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector((store) => store.userData.isAuthenticated);
-  const dataIngredient = useSelector(
-    (store) => store.dataConstructor.ingredients
-  );
-  const dataBuns = useSelector((store) => store.dataConstructor.bun);
-  const burgerData = [dataBuns[0], ...dataIngredient, dataBuns[1]]
+
+  // ИСПРАВИТЬ ТИПИЗАЦИЮ
+  const userData = useSelector((store: any) => store.userData.isAuthenticated);
+  const dataIngredient = useSelector((store: any) => store.dataConstructor.ingredients);
+  const dataBuns = useSelector((store: any) => store.dataConstructor.bun);
+  // ИСПРАВИТЬ ТИПИЗАЦИЮ
+
+  const burgerData = [dataBuns[0], ...dataIngredient, dataBuns[1]];
   const totalPrice = useMemo(() => {
     const dataConstructor = [...dataIngredient, ...dataBuns];
     return dataConstructor.reduce((accumulator, item) => {
@@ -32,7 +32,7 @@ function BurgerConstructor({ handlePopupState }) {
     }, 0);
   }, [dataBuns, dataIngredient]);
 
-  function apiOrderData(handlePopupState, dataIngredient) {
+  function apiOrderData(handlePopupState: Function, dataIngredient: ReadonlyArray<TIngredient>) {
     handlePopupState(true);
     dispatch(getApiOrder(dataIngredient));
   }
@@ -49,7 +49,7 @@ function BurgerConstructor({ handlePopupState }) {
 
   const [, ref] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: TIngredient) {
       dispatch(postIngredient({ ...item, uniqueId: uuidv4() }));
     },
   });
@@ -90,15 +90,8 @@ function BurgerConstructor({ handlePopupState }) {
           className={`custom-scroll ${styles.listConsctructor}`}
         >
           {dataIngredient.length > 0 ? (
-            dataIngredient.map((el, index) => {
-              return (
-                <ConstructorElements
-                  el={el}
-                  index={index}
-                  func={deleteIngredient}
-                  key={el.uniqueId}
-                />
-              );
+            dataIngredient.map((el: TIngredient, index: number) => {
+              return <ConstructorElements el={el} index={index} func={deleteIngredient} key={el.uniqueId} />;
             })
           ) : (
             <p>Выбери ингредиенты</p>
@@ -122,7 +115,7 @@ function BurgerConstructor({ handlePopupState }) {
       <div className={styles.finalPrice}>
         <p className="text text_type_digits-medium mr-10">
           {totalPrice}
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </p>
         <Button
           onClick={() => onClickButton()}
@@ -136,10 +129,6 @@ function BurgerConstructor({ handlePopupState }) {
       </div>
     </>
   );
-}
-
-BurgerConstructor.propTypes = {
-  handlePopupState: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

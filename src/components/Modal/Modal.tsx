@@ -2,11 +2,11 @@ import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { FC, ReactElement } from "react";
+import React, { FC } from "react";
 const modalPortal = document.getElementById("react-modals") as HTMLDivElement;
 
 interface IProps {
-  childred: ReactElement;
+  children: JSX.Element;
   handlePopupClose: Function;
 }
 
