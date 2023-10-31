@@ -10,5 +10,15 @@ export type TIngredient = {
   readonly proteins: number;
   readonly type: string;
   readonly _id: string;
-  uniqueId?: string;
+  readonly uniqueId?: string;
+};
+
+export type TOrder = {
+  readonly createdAt: string;
+  ingredients: ReadonlyArray<string>;
+  readonly name: string;
+  readonly number: number;
+  readonly status: string;
+  readonly updatedAt: string;
+  readonly _id: string;
 };

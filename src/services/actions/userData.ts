@@ -23,88 +23,88 @@ export const POST_USER_DATA_FAILED: "POST_USER_DATA_FAILED" = "POST_USER_DATA_FA
 export const POST_USER_DATA_SUCCESS: "POST_USER_DATA_SUCCESS" = "POST_USER_DATA_SUCCESS";
 
 type TUser = {
-  email: string;
-  name: string;
+  readonly email: string;
+  readonly name: string;
 };
 
 export type TGetUserData = {
-  success: boolean;
-  user: TUser;
+  readonly success: boolean;
+  readonly user: TUser;
 };
 
 type TPostUserData = TGetUserData;
 
-type TLogInUser = TGetUserData & { accessToken: string; refreshToken: string };
+type TLogInUser = TGetUserData & { readonly accessToken: string; readonly refreshToken: string };
 
 type TRegUser = TLogInUser;
 
 interface IRegUserSuccess {
-  type: typeof REG_USER_SUCCESS;
-  userDataReg: TRegUser;
+  readonly type: typeof REG_USER_SUCCESS;
+  readonly userDataReg: TRegUser;
 }
 
 interface IRegUserRequest {
-  type: typeof REG_USER_REQUEST;
+  readonly type: typeof REG_USER_REQUEST;
 }
 
 interface IRegUserFailed {
-  type: typeof REG_USER_FAILED;
+  readonly type: typeof REG_USER_FAILED;
 }
 
 interface ILogInUserRequest {
-  type: typeof LOG_IN_USER_REQUEST;
+  readonly type: typeof LOG_IN_USER_REQUEST;
 }
 
 interface ILogInUserSuccess {
-  type: typeof LOG_IN_USER_SUCCESS;
-  userDataLogIn: TLogInUser;
+  readonly type: typeof LOG_IN_USER_SUCCESS;
+  readonly userDataLogIn: TLogInUser;
 }
 
 interface ILogInUserFailed {
-  type: typeof LOG_IN_USER_FAILED;
+  readonly type: typeof LOG_IN_USER_FAILED;
 }
 
 interface ILogOutUserRequest {
-  type: typeof LOG_OUT_USER_REQUEST;
+  readonly type: typeof LOG_OUT_USER_REQUEST;
 }
 
 interface ILogOutUserSuccess {
-  type: typeof LOG_OUT_USER_SUCCESS;
+  readonly type: typeof LOG_OUT_USER_SUCCESS;
 }
 
 interface ILogOutUserFailed {
-  type: typeof LOG_OUT_USER_FAILED;
+  readonly type: typeof LOG_OUT_USER_FAILED;
 }
 
 interface ISetAuthChecked {
-  type: typeof SET_AUTH_CHECKED;
-  payload: boolean;
+  readonly type: typeof SET_AUTH_CHECKED;
+  readonly payload: boolean;
 }
 
 interface IGetUserDataRequest {
-  type: typeof GET_USER_DATA_REQUEST;
+  readonly type: typeof GET_USER_DATA_REQUEST;
 }
 
 interface IGetUserDataSuccess {
-  type: typeof GET_USER_DATA_SUCCESS;
-  userData: TGetUserData;
+  readonly type: typeof GET_USER_DATA_SUCCESS;
+  readonly userData: TGetUserData;
 }
 
 interface IGetUserDataFailed {
-  type: typeof GET_USER_DATA_FAILED;
+  readonly type: typeof GET_USER_DATA_FAILED;
 }
 
 interface IPostUserDataRequest {
-  type: typeof POST_USER_DATA_REQUEST;
+  readonly type: typeof POST_USER_DATA_REQUEST;
 }
 
 interface IPostUserDataSuccess {
-  type: typeof POST_USER_DATA_SUCCESS;
-  userData: TPostUserData;
+  readonly type: typeof POST_USER_DATA_SUCCESS;
+  readonly userData: TPostUserData;
 }
 
 interface IPostUserDataFailed {
-  type: typeof POST_USER_DATA_FAILED;
+  readonly type: typeof POST_USER_DATA_FAILED;
 }
 
 export type TUserDataActions =

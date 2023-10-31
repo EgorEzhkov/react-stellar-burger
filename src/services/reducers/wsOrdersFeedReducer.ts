@@ -1,3 +1,4 @@
+import { TOrder } from "../../types/types";
 import {
   WS_ORDERS_FEED_CONNECTION_START,
   WS_ORDERS_FEED_CONNECTION_SUCCESS,
@@ -5,9 +6,22 @@ import {
   WS_ORDERS_FEED_CONNECTION_CLOSED,
   WS_ORDERS_FEED_GET_MESSAGE,
   WS_ORDERS_FEED_CONNECTION_STOP,
-} from "../actions/wsOrdersFeedData.js";
+  TWsOrdersFeedDataActions,
+  TWsMessageData,
+} from "../actions/wsOrdersFeedData";
 
-const initialState = {
+type TInitialState = {
+  readonly wsConnected: boolean;
+  messages: ReadonlyArray<TWsMessageData>;
+  orders: ReadonlyArray<TOrder>;
+  readonly total: number;
+  readonly totalToday: number;
+  readonly error: undefined | unknown;
+  readonly wsConnectionRequest: boolean;
+  readonly wsClosing: boolean;
+};
+
+const initialState: TInitialState = {
   wsConnected: false,
   messages: [],
   orders: [],
@@ -18,7 +32,7 @@ const initialState = {
   wsClosing: false,
 };
 
-export const wsOrdersFeedReducer = (state = initialState, action) => {
+export const wsOrdersFeedReducer = (state = initialState, action: TWsOrdersFeedDataActions): TInitialState => {
   switch (action.type) {
     case WS_ORDERS_FEED_CONNECTION_START:
       return {
