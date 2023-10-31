@@ -19,10 +19,7 @@ const initialState: TInitialState = {
   bun: [],
 };
 
-export const consctructorIngredientsReduser = (
-  state = initialState,
-  action: TConstructorIngredientsActions
-): TInitialState => {
+export const consctructorIngredientsReduser = (state = initialState, action: TConstructorIngredientsActions): TInitialState => {
   switch (action.type) {
     case POST_INGREDIENT: {
       if (action.payload.type === "bun") {
