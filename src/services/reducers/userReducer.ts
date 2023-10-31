@@ -15,9 +15,33 @@ import {
   POST_USER_DATA_REQUEST,
   POST_USER_DATA_FAILED,
   POST_USER_DATA_SUCCESS,
+  TUserDataActions,
+  TGetUserData,
 } from "../actions/userData";
 
-const initialState = {
+type TUserData = TGetUserData;
+
+type TInitialState = {
+  userData: TUserData | object;
+  registerUserRequest: boolean;
+  registerUserSuccess: boolean;
+  registerUserFailed: boolean;
+  logInUserRequest: boolean;
+  logInUserSuccess: boolean;
+  logInUserFailed: boolean;
+  getUserDataRequest: boolean;
+  getUserDataSuccess: boolean;
+  getUserDataFailed: boolean;
+  postUserDataRequest: boolean;
+  postUserDataSuccess: boolean;
+  postUserDataFailed: boolean;
+  isAuthenticated: boolean;
+  logOutUserRequest: boolean;
+  logOutUserSuccess: boolean;
+  logOutUserFailed: boolean;
+};
+
+const initialState: TInitialState = {
   userData: {},
   registerUserRequest: false,
   registerUserSuccess: false,
@@ -37,7 +61,7 @@ const initialState = {
   logOutUserFailed: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserDataActions): TInitialState => {
   switch (action.type) {
     case REG_USER_REQUEST: {
       return { ...state, registerUserRequest: true };
@@ -118,7 +142,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         postUserDataRequest: true,
-        postUserDataFailed: false
+        postUserDataFailed: false,
       };
     }
     case POST_USER_DATA_SUCCESS: {
@@ -128,15 +152,15 @@ export const userReducer = (state = initialState, action) => {
         postUserDataSuccess: true,
         postUserDataFailed: false,
         userData: action.userData,
-      }
+      };
     }
     case POST_USER_DATA_FAILED: {
       return {
         ...state,
         postUserDataFailed: true,
         postUserDataRequest: false,
-        postUserDataSuccess: false
-      }
+        postUserDataSuccess: false,
+      };
     }
     case LOG_OUT_USER_REQUEST: {
       return {
@@ -164,6 +188,7 @@ export const userReducer = (state = initialState, action) => {
     }
     case LOG_OUT_USER_FAILED: {
       return {
+        ...state,
         logOutUserFailed: true,
         logOutUserRequest: false,
       };
