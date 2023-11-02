@@ -1,4 +1,4 @@
-import { TOrder } from "../../types/types";
+import { TOrder, TWsMessageData } from "../../types/types";
 import {
   WS_ORDERS_FEED_CONNECTION_START,
   WS_ORDERS_FEED_CONNECTION_SUCCESS,
@@ -7,7 +7,6 @@ import {
   WS_ORDERS_FEED_GET_MESSAGE,
   WS_ORDERS_FEED_CONNECTION_STOP,
   TWsOrdersFeedDataActions,
-  TWsMessageData,
 } from "../actions/wsOrdersFeedData";
 
 type TInitialState = {

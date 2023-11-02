@@ -1,3 +1,5 @@
+import { object } from "prop-types";
+import { TOrder, TWsMessageData } from "../../types/types";
 import {
   WS_PROFILE_ORDERS_CONNECTION_START,
   WS_PROFILE_ORDERS_CONNECTION_SUCCESS,
@@ -5,9 +7,19 @@ import {
   WS_PROFILE_ORDERS_CONNECTION_CLOSED,
   WS_PROFILE_ORDERS_GET_MESSAGE,
   WS_PROFILE_ORDERS_CONNECTION_STOP,
+  TWsProfileOrdersDataActions,
 } from "../actions/wsProfileOrdersData";
 
-const initialState = {
+type TInitialState = {
+  wsConnected: boolean;
+  messages: TWsMessageData[];
+  orders: ReadonlyArray<TOrder>;
+  error: undefined | unknown;
+  wsConnectionRequest: boolean;
+  wsClosing: boolean;
+};
+
+const initialState: TInitialState = {
   wsConnected: false,
   messages: [],
   orders: [],
@@ -16,7 +28,7 @@ const initialState = {
   wsClosing: false,
 };
 
-export const wsProfileOrdersReducer = (state = initialState, action) => {
+export const wsProfileOrdersReducer = (state = initialState, action: TWsProfileOrdersDataActions): TInitialState => {
   switch (action.type) {
     case WS_PROFILE_ORDERS_CONNECTION_START:
       return {

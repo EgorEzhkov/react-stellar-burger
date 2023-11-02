@@ -22,3 +22,10 @@ export type TOrder = {
   readonly updatedAt: string;
   readonly _id: string;
 };
+
+export type TWsMessageData = {
+  orders: ReadonlyArray<TOrder>;
+  readonly success: boolean;
+  readonly total: number;
+  readonly totalToday: number;
+};

@@ -1,4 +1,4 @@
-import { TOrder } from "../../types/types";
+import { TOrder, TWsMessageData } from "../../types/types";
 import { wsActionsCreater } from "../../utils/util";
 
 export const WS_ORDERS_FEED_CONNECTION_START: "WS_ORDERS_FEED_CONNECTION_START" = "WS_ORDERS_FEED_CONNECTION_START";
@@ -7,13 +7,6 @@ export const WS_ORDERS_FEED_CONNECTION_ERROR: "WS_ORDERS_FEED_CONNECTION_ERROR" 
 export const WS_ORDERS_FEED_CONNECTION_CLOSED: "WS_ORDERS_FEED_CONNECTION_CLOSED" = "WS_ORDERS_FEED_CONNECTION_CLOSED";
 export const WS_ORDERS_FEED_GET_MESSAGE: "WS_ORDERS_FEED_GET_MESSAGE" = "WS_ORDERS_FEED_GET_MESSAGE";
 export const WS_ORDERS_FEED_CONNECTION_STOP: "WS_ORDERS_FEED_CONNECTION_STOP" = "WS_ORDERS_FEED_CONNECTION_STOP";
-
-export type TWsMessageData = {
-  orders: ReadonlyArray<TOrder>;
-  readonly success: boolean;
-  readonly total: number;
-  readonly totalToday: number;
-};
 
 interface IWsOrdersFeedConnectionStart {
   readonly type: typeof WS_ORDERS_FEED_CONNECTION_START;
