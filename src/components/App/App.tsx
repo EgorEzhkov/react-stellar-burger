@@ -2,7 +2,7 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsData";
 import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
@@ -19,6 +19,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import FeedPage from "../../pages/FeedPage/FeedPage";
 import FeedOrderDetails from "../../pages/FeedOrderDetails/FeedOrderDetails";
 import ProfileOrderDetails from "../../pages/ProfileOrderDetails/ProfileOrderDetails";
+import { useSelector } from "../../utils/hooks";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function App() {
   }, [dispatch]);
 
   // ИСПРАВИТЬ ТИПИЗАЦИЮ
-  const ingredientsRequest = useSelector((store: any) => store.ingredients.ingredientsRequest);
+  const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
   // ИСПРАВИТЬ ТИПИЗАЦИЮ
 
   return (

@@ -1,3 +1,13 @@
+import { store } from "../services/store";
+import { ActionCreator, Action, Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { TConstructorIngredientsActions } from "../services/actions/constructorIngredientsData";
+import { TIngredientsDataActions } from "../services/actions/ingredientsData";
+import { TOrderDetailsDataActions } from "../services/actions/orderDetailsData";
+import { TUserDataActions } from "../services/actions/userData";
+import { TWsOrdersFeedDataActions } from "../services/actions/wsOrdersFeedData";
+import { TWsProfileOrdersDataActions } from "../services/actions/wsProfileOrdersData";
+
 export type TIngredient = {
   readonly calories: number;
   readonly carbohydrates: number;
@@ -29,3 +39,20 @@ export type TWsMessageData = {
   readonly total: number;
   readonly totalToday: number;
 };
+
+
+export type RootState = ReturnType<typeof store.getState>;
+
+// Типизация всех экшенов приложения
+type TApplicationActions =
+  | TConstructorIngredientsActions
+  | TIngredientsDataActions
+  | TOrderDetailsDataActions
+  | TUserDataActions
+  | TWsOrdersFeedDataActions
+  | TWsProfileOrdersDataActions;
+
+// Типизация thunk в нашем приложении
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
+
+export type AppDispatch = Dispatch<TApplicationActions>;

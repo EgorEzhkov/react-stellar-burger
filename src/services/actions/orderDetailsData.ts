@@ -1,4 +1,4 @@
-import { TIngredient } from "../../types/types";
+import { AppDispatch, AppThunk, TIngredient } from "../../types/types";
 import { apiOrder } from "../../utils/api";
 import { DELETE_ALL_INRGEDIENTS } from "./constructorIngredientsData";
 
@@ -19,10 +19,8 @@ interface IGetOrderSuccess {
 
 export type TOrderDetailsDataActions = IGetOrderFailed | IGetOrderRequest | IGetOrderSuccess;
 
-export const getApiOrder = (ingredientsData: ReadonlyArray<TIngredient>) => {
-  // ИСПРАВИТЬ ТИПИЗАЦИЮ
-  return function (dispatch: any) {
-    // ИСПРАВИТЬ ТИПИЗАЦИЮ
+export const getApiOrder: AppThunk = (ingredientsData: ReadonlyArray<TIngredient>) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: GET_ORDER_REQUEST });
     apiOrder(ingredientsData)
       .then((data) => {

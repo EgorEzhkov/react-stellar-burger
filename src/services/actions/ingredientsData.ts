@@ -1,4 +1,4 @@
-import { TIngredient } from "../../types/types";
+import { AppDispatch, AppThunk, TIngredient } from "../../types/types";
 import { apiIngredients } from "../../utils/api";
 
 export const GET_INGREDIENTS_FAILED: "GET_INGREDIENTS_FAILED" = "GET_INGREDIENTS_FAILED";
@@ -20,10 +20,8 @@ interface IGetIngredientSuccess {
 
 export type TIngredientsDataActions = IGetIngredientFailed | IGetIngredientRequest | IGetIngredientSuccess;
 
-export const getIngredients = () => {
-  // ИСПРАВИТЬ ТИПИЗАЦИЮ
-  return function (dispatch: any) {
-    // ИСПРАВИТЬ ТИПИЗАЦИЮ
+export const getIngredients: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });

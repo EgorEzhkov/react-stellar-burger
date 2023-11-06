@@ -1,13 +1,14 @@
 import { CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
 import { FC, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getApiOrder } from "../../services/actions/orderDetailsData";
 import { useDrop } from "react-dnd";
 import { deleteIngredient, postIngredient } from "../../services/actions/constructorIngredientsData";
 import ConstructorElements from "./ConstructorElements/ConstructorElements";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "../../utils/hooks";
 import { TIngredient } from "../../types/types";
 
 interface IProps {
@@ -18,11 +19,9 @@ const BurgerConstructor: FC<IProps> = ({ handlePopupState }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ИСПРАВИТЬ ТИПИЗАЦИЮ
-  const userData = useSelector((store: any) => store.userData.isAuthenticated);
-  const dataIngredient = useSelector((store: any) => store.dataConstructor.ingredients);
-  const dataBuns = useSelector((store: any) => store.dataConstructor.bun);
-  // ИСПРАВИТЬ ТИПИЗАЦИЮ
+  const userData = useSelector((store) => store.userData.isAuthenticated);
+  const dataIngredient = useSelector((store) => store.dataConstructor.ingredients);
+  const dataBuns = useSelector((store) => store.dataConstructor.bun);
 
   const burgerData = [dataBuns[0], ...dataIngredient, dataBuns[1]];
   const totalPrice = useMemo(() => {
@@ -37,7 +36,7 @@ const BurgerConstructor: FC<IProps> = ({ handlePopupState }) => {
     dispatch(getApiOrder(dataIngredient));
   }
 
-  const [buttonState, setButtonState] = useState(false);
+  const [buttonState, setButtonState] = useState<boolean>(false);
 
   useEffect(() => {
     if (dataIngredient.length > 0 && dataBuns.length > 0) {
@@ -117,13 +116,7 @@ const BurgerConstructor: FC<IProps> = ({ handlePopupState }) => {
           {totalPrice}
           <CurrencyIcon type="primary" />
         </p>
-        <Button
-          onClick={() => onClickButton()}
-          htmlType="button"
-          type="primary"
-          size="large"
-          disabled={buttonState}
-        >
+        <Button onClick={() => onClickButton()} htmlType="button" type="primary" size="large" disabled={buttonState}>
           Нажми на меня
         </Button>
       </div>

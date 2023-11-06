@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerIngredients.module.css";
-import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { Ingredient } from "./Ingredient/Ingredient";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useSelector } from "../../utils/hooks";
+
 function BurgerIngredients() {
   const data = useSelector((store) => store.ingredients.ingredients);
   const location = useLocation();
-  const [current, setCurrent] = React.useState("Булки");
-  const setTab = (tab) => {
+  const [current, setCurrent] = React.useState<string>("Булки");
+  const setTab = (tab: string) => {
     setCurrent(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
