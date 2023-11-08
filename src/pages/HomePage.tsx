@@ -8,12 +8,10 @@ import BurgerConstructor from "../components/BurgerConstructor/BurgerConstructor
 import styles from "./HomePage.module.css";
 
 const HomePage = () => {
-  const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState(false);
+  const [orderDetalsPopupOpen, setOrderDetalsPopupOpen] = useState<boolean>(false);
   const closeOrderPopup = () => {
     setOrderDetalsPopupOpen(false);
   };
-
-
 
   return (
     <>

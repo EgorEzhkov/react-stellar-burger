@@ -28,7 +28,7 @@ type TUser = {
   readonly name: string;
 };
 
-export type TGetUserData = {
+type TGetUserData = {
   readonly success: boolean;
   readonly user: TUser;
 };

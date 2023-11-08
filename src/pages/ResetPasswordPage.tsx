@@ -1,16 +1,15 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link, Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { apiResetPassword } from "../utils/api";
-import { usePasswordShow } from "../utils/util";
+import { usePasswordShow } from "../utils/hooks";
 
 const ResetPasswordPage = () => {
-  const [passwordValue, setPasswordValue] = useState("");
-  const [token, setToken] = useState("");
-  const submit = (e) => {
-    e.preventDefault();
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [token, setToken] = useState<string>("");
+  const submit = (event: FormEvent) => {
+    event.preventDefault();
     apiResetPassword(passwordValue, token)
       .then(() => {
         localStorage.removeItem("resetPasswordOk");
@@ -24,7 +23,7 @@ const ResetPasswordPage = () => {
       });
   };
 
-  const passwordShow = usePasswordShow()
+  const passwordShow = usePasswordShow();
 
   return localStorage.getItem("resetPasswordOk") ? (
     <div>

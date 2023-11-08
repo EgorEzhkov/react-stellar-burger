@@ -16,13 +16,10 @@ import {
   POST_USER_DATA_FAILED,
   POST_USER_DATA_SUCCESS,
   TUserDataActions,
-  TGetUserData,
 } from "../actions/userData";
 
-type TUserData = TGetUserData;
-
 type TInitialState = {
-  userData: TUserData | object;
+  userData: { readonly success: boolean; readonly user: { email: string; name: string } };
   registerUserRequest: boolean;
   registerUserSuccess: boolean;
   registerUserFailed: boolean;
@@ -42,7 +39,13 @@ type TInitialState = {
 };
 
 const initialState: TInitialState = {
-  userData: {},
+  userData: {
+    success: false,
+    user: {
+      email: "",
+      name: "",
+    },
+  },
   registerUserRequest: false,
   registerUserSuccess: false,
   registerUserFailed: false,

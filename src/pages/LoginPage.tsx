@@ -1,10 +1,11 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
 import { logInUser } from "../services/actions/userData";
-import { useDispatch, useSelector } from "react-redux";
-import { usePasswordShow } from "../utils/util";
+import { useDispatch } from "react-redux";
+import { usePasswordShow } from "../utils/hooks";
+import { useSelector } from "../utils/hooks";
 
 const LoginPage = () => {
   const [loginValue, setLoginValue] = useState("");
@@ -18,7 +19,7 @@ const LoginPage = () => {
     return store.userData.logInUserSuccess;
   });
 
-  const logIn = (e) => {
+  const logIn = (e: FormEvent) => {
     e.preventDefault();
     dispatch(logInUser(loginValue, passwordValue));
     return userLogInSuccess ? (setLoginValue(""), setPasswordValue("")) : null;
@@ -26,7 +27,12 @@ const LoginPage = () => {
 
   return (
     <div>
-      <form onSubmit={(e) => {logIn(e)}} className={styles.form}>
+      <form
+        onSubmit={(e) => {
+          logIn(e);
+        }}
+        className={styles.form}
+      >
         <h2 className="text text_type_main-medium">Вход</h2>
         <div className="mb-6 mt-6">
           <Input

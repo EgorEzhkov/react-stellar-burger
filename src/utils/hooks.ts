@@ -3,8 +3,8 @@ import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispa
 import { RootState, AppDispatch, AppThunk } from "../types/types";
 
 export const usePasswordShow = () => {
-  const [type, setType] = useState<string>("password");
-  const [icon, setIcon] = useState<string>("HideIcon");
+  const [type, setType] = useState<"password" | "text">("password");
+  const [icon, setIcon] = useState<"HideIcon" | "ShowIcon">("HideIcon");
   const showPassword = () => {
     return type === "password" ? (setType("text"), setIcon("ShowIcon")) : (setType("password"), setIcon("HideIcon"));
   };
@@ -13,5 +13,4 @@ export const usePasswordShow = () => {
 
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
-export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>(); 
-
+export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>();

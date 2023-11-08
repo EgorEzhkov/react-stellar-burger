@@ -1,14 +1,14 @@
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { apiForgotPassword } from "../utils/api";
 
 const ForgotPasswordPage = () => {
-  const [emailValue, setEmailValue] = useState("");
+  const [emailValue, setEmailValue] = useState<string>("");
   const navigate = useNavigate();
-  const checkEmail = (e, email) => {
-    e.preventDefault()
+  const checkEmail = (e: FormEvent, email: string) => {
+    e.preventDefault();
     apiForgotPassword(email)
       .then((res) => {
         localStorage.setItem("resetPasswordOk", res.success);

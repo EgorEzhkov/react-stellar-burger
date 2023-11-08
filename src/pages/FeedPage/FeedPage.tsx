@@ -1,12 +1,9 @@
 import styles from "./FeedPage.module.css";
 import ListElement from "./ListElement/ListElement";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/hooks";
 import { useEffect } from "react";
-import {
-  wsOrdersFeedConnectionStart,
-  wsOrdersFeedConnectionStop,
-} from "../../services/actions/wsOrdersFeedData";
+import { wsOrdersFeedConnectionStart, wsOrdersFeedConnectionStop } from "../../services/actions/wsOrdersFeedData";
 const FeedPage = () => {
   const dispatch = useDispatch();
 
@@ -31,11 +28,7 @@ const FeedPage = () => {
             orders.map((el, index) => {
               return (
                 <li className={styles.listElement} key={index}>
-                  <Link
-                    to={{ pathname: `/feed/${el._id}` }}
-                    state={{ background: location }}
-                    className={styles.link}
-                  >
+                  <Link to={{ pathname: `/feed/${el._id}` }} state={{ background: location }} className={styles.link}>
                     <ListElement props={el} />
                   </Link>
                 </li>

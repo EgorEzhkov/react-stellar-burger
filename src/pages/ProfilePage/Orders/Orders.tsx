@@ -1,10 +1,7 @@
 import styles from "./Orders.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../../utils/hooks";
 import { Link, useLocation } from "react-router-dom";
-import {
-  wsProfileOrdersConnectionStart,
-  wsProfileOrdersConnectionStop,
-} from "../../../services/actions/wsProfileOrdersData";
+import { wsProfileOrdersConnectionStart, wsProfileOrdersConnectionStop } from "../../../services/actions/wsProfileOrdersData";
 import { useEffect } from "react";
 import ListElement from "./ListElement/ListElement";
 
@@ -13,10 +10,8 @@ export const Orders = () => {
   const orders = useSelector((store) => store.wsProfileOrders.orders);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken").replace("Bearer ", "");
-    dispatch(
-      wsProfileOrdersConnectionStart(`wss://norma.nomoreparties.space/orders?token=${token}`)
-    );
+    const token = localStorage.getItem("accessToken")!.replace("Bearer ", "");
+    dispatch(wsProfileOrdersConnectionStart(`wss://norma.nomoreparties.space/orders?token=${token}`));
 
     return () => {
       dispatch(wsProfileOrdersConnectionStop());
@@ -31,11 +26,7 @@ export const Orders = () => {
         {orders.map((el, index) => {
           return (
             <li key={index} className={styles.li}>
-              <Link
-                to={{ pathname: `/profile/orders/${el._id}` }}
-                state={{ background: location }}
-                className={styles.link}
-              >
+              <Link to={{ pathname: `/profile/orders/${el._id}` }} state={{ background: location }} className={styles.link}>
                 <ListElement props={el} />
               </Link>
             </li>

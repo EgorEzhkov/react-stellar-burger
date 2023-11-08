@@ -1,8 +1,9 @@
 import styles from "./ListElement.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import { useMemo } from "react";
-const ListElement = ({ props }) => {
+import { useSelector } from "../../../utils/hooks";
+import { FC, useMemo } from "react";
+import { TOrder } from "../../../types/types";
+const ListElement: FC<{ props: TOrder }> = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
 
   const elements = props.ingredients.map((ingredient, index) => {
@@ -14,7 +15,7 @@ const ListElement = ({ props }) => {
   const filterElements = elements.filter((e) => e != undefined);
 
   const price = filterElements.reduce((accumulator, item) => {
-    return item.price + accumulator;
+    return item!.price + accumulator;
   }, 0);
 
   return (
@@ -29,12 +30,8 @@ const ListElement = ({ props }) => {
           filterElements.map((idIngredient, number) => {
             return (
               number < 6 && (
-                <div
-                  className={styles.imageContainer}
-                  data-count={`+${filterElements.slice(5).length}`}
-                  key={number}
-                >
-                  <img src={idIngredient.image} alt="Ингредиент" className={styles.image} />
+                <div className={styles.imageContainer} data-count={`+${filterElements.slice(5).length}`} key={number}>
+                  <img src={idIngredient!.image} alt="Ингредиент" className={styles.image} />
                 </div>
               )
             );

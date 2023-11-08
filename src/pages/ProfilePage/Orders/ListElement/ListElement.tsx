@@ -1,8 +1,10 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { FC } from "react";
+import { useSelector } from "../../../../utils/hooks";
 import styles from "./ListElement.module.css";
+import { TOrder } from "../../../../types/types";
 
-const ListElement = ({ props }) => {
+const ListElement: FC<{ props: TOrder }> = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);
 
   const elements = props.ingredients.map((ingredient, index) => {
@@ -14,7 +16,7 @@ const ListElement = ({ props }) => {
   const filterElements = elements.filter((e) => e != undefined);
 
   const price = filterElements.reduce((accumulator, item) => {
-    return item.price + accumulator;
+    return item!.price + accumulator;
   }, 0);
 
   const { createdAt, name, number, status } = props;
@@ -26,9 +28,7 @@ const ListElement = ({ props }) => {
         <p className="text text_type_main-default text_color_inactive">{createdAt}</p>
       </div>
       <p className="text text_type_main-medium mb-2">{name}</p>
-      {status === "done" && (
-        <p className={`mb-6 text text_type_main-default ${styles.textActive}`}>Выполнен</p>
-      )}
+      {status === "done" && <p className={`mb-6 text text_type_main-default ${styles.textActive}`}>Выполнен</p>}
       {status === "created" && <p className="mb-6 text text_type_main-default">Создан</p>}
       {status === "pending" && <p className="mb-6 text text_type_main-default">Готовится</p>}
       <div className={styles.imgAndPrice}>
@@ -36,12 +36,8 @@ const ListElement = ({ props }) => {
           filterElements.map((element, number) => {
             return (
               number < 6 && (
-                <div
-                  className={styles.imageContainer}
-                  data-count={`+${filterElements.slice(5).length}`}
-                  key={number}
-                >
-                  <img src={element.image} alt="Ингредиент" className={styles.image} />
+                <div className={styles.imageContainer} data-count={`+${filterElements.slice(5).length}`} key={number}>
+                  <img src={element!.image} alt="Ингредиент" className={styles.image} />
                 </div>
               )
             );

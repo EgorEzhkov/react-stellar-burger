@@ -1,13 +1,14 @@
 import styles from "./Profile.module.css";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent, useState } from "react";
+import { useSelector, useDispatch } from "../../../utils/hooks";
 import { postUserData } from "../../../services/actions/userData";
 export const Profile = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const name = useSelector((store) => store.userData.userData.user.name);
   const login = useSelector((store) => store.userData.userData.user.email);
+  const dafsfdsa = useSelector((store) => store.userData.userData);
 
   const [loginValue, setLoginValue] = useState(login);
   const [passwordValue, setPasswordValue] = useState("fdsafdsaf");
@@ -16,9 +17,8 @@ export const Profile = () => {
   const [disabledName, setDisabledName] = useState(true);
   const [disabledLogin, setDisabledLogin] = useState(true);
 
-  const submit = (e) => {
+  const submit = (e: FormEvent) => {
     e.preventDefault();
-    console.log("fdsaf");
   };
 
   const lala = () => {

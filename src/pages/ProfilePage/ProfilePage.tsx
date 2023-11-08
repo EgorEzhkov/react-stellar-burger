@@ -21,21 +21,17 @@ export const ProfilePage = () => {
       <nav className={`mr-20 ${styles.navLinks}`}>
         <NavLink
           to="/profile/user"
-          className={({ isActive, isPending }) =>
-            isPending ? styles.navLink : isActive ? styles.activeNavLink : styles.navLink
-          }
+          className={({ isActive, isPending }) => (isPending ? styles.navLink : isActive ? styles.activeNavLink : styles.navLink)}
         >
           Профиль
         </NavLink>
         <NavLink
           to="/profile/orders"
-          className={({ isActive, isPending }) =>
-            isPending ? styles.navLink : isActive ? styles.activeNavLink : styles.navLink
-          }
+          className={({ isActive, isPending }) => (isPending ? styles.navLink : isActive ? styles.activeNavLink : styles.navLink)}
         >
           История заказов
         </NavLink>
-        <NavLink onClick={logOut} end className={styles.navLink}>
+        <NavLink to="" onClick={logOut} end className={styles.navLink}>
           Выход
         </NavLink>
         {location.pathname === "/profile/user" && (
