@@ -1,7 +1,7 @@
 import { CurrencyIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
 import { FC, useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 import { getApiOrder } from "../../services/actions/orderDetailsData";
 import { useDrop } from "react-dnd";
 import { deleteIngredient, postIngredient } from "../../services/actions/constructorIngredientsData";

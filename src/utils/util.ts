@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const wsActionsCreater = (
   connectStart: Function,
   onOpen: Function,

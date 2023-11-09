@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Protected: FunctionComponent<IProps> = ({ onlyUnAuth = false, component }) => {
-  const user = useSelector((store: any) => store.userData.isAuthenticated);
+  const user = useSelector((store) => store.userData.isAuthenticated);
   const location = useLocation();
 
   if (onlyUnAuth && user) {
@@ -24,6 +24,4 @@ const Protected: FunctionComponent<IProps> = ({ onlyUnAuth = false, component })
 };
 
 export const OnlyAuth: FunctionComponent<IProps> = Protected;
-export const OnlyUnAuth: FunctionComponent<IProps> = ({ component }) => (
-  <Protected onlyUnAuth={true} component={component} />
-);
+export const OnlyUnAuth: FunctionComponent<IProps> = ({ component }) => <Protected onlyUnAuth={true} component={component} />;

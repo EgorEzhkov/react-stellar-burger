@@ -1,7 +1,7 @@
 import styles from "./ListElement.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "../../../utils/hooks";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { TOrder } from "../../../types/types";
 const ListElement: FC<{ props: TOrder }> = ({ props }) => {
   const ingredientsData = useSelector((store) => store.ingredients.ingredients);

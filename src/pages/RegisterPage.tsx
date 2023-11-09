@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import styles from "./LoginPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { regUser } from "../services/actions/userData";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../utils/hooks";
 import { usePasswordShow } from "../utils/hooks";
 import { useSelector } from "../utils/hooks";
 

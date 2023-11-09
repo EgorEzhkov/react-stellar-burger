@@ -37,7 +37,7 @@ const ResetPasswordPage = () => {
             type={`${passwordShow.type}`}
             value={passwordValue}
             placeholder="Введите новый пароль"
-            icon={`${passwordShow.icon}`}
+            icon={passwordShow.icon}
             onIconClick={passwordShow.showPassword}
           ></Input>
         </div>

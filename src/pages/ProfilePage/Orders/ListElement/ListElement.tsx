@@ -14,7 +14,6 @@ const ListElement: FC<{ props: TOrder }> = ({ props }) => {
   });
 
   const filterElements = elements.filter((e) => e != undefined);
-
   const price = filterElements.reduce((accumulator, item) => {
     return item!.price + accumulator;
   }, 0);

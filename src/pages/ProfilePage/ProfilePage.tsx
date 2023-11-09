@@ -1,7 +1,7 @@
 import styles from "./ProfilePage.module.css";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 import { logOutUser } from "../../services/actions/userData";
 import { getUserData } from "../../services/actions/userData";
 

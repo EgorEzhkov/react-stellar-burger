@@ -1,5 +1,4 @@
 import { Middleware } from "redux";
-import { RootState } from "../../types/types";
 
 type TWsActions = {
   onOpen: Function;

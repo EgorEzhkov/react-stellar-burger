@@ -35,9 +35,11 @@ function AppHeader() {
           )}
         </NavLink>
       </div>
-      <div className={styles.logo}>
-        <Logo />
-      </div>
+      <NavLink to="/">
+        <div className={styles.logo}>
+          <Logo />
+        </div>
+      </NavLink>
 
       <NavLink to="/profile/user" className={`mt-4 mb-4 pt-4 pb-4 ${styles.element}`}>
         {location.pathname.includes("/profile") ? (

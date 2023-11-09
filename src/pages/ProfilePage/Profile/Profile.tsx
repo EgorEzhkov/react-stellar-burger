@@ -8,10 +8,9 @@ export const Profile = () => {
 
   const name = useSelector((store) => store.userData.userData.user.name);
   const login = useSelector((store) => store.userData.userData.user.email);
-  const dafsfdsa = useSelector((store) => store.userData.userData);
 
   const [loginValue, setLoginValue] = useState(login);
-  const [passwordValue, setPasswordValue] = useState("fdsafdsaf");
+  const [passwordValue, setPasswordValue] = useState("паролянет((");
   const [nameValue, setNameValue] = useState(name);
 
   const [disabledName, setDisabledName] = useState(true);
@@ -21,9 +20,6 @@ export const Profile = () => {
     e.preventDefault();
   };
 
-  const lala = () => {
-    alert("ИДИ ПОКА НАААААА НЕБО ЗА ЗВЕЗДОЧКОЙ");
-  };
 
   return (
     <div className={styles.inputs}>
@@ -77,9 +73,6 @@ export const Profile = () => {
           value={passwordValue}
           placeholder={"Пароль"}
           disabled={true}
-          onIconClick={() => {
-            lala();
-          }}
         ></Input>
       </div>
     </div>

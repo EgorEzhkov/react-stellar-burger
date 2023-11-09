@@ -39,6 +39,10 @@ const ProfileOrderDetails = () => {
     }, 0);
   }, [ingredients]);
 
+  const repetitiveIngredients = ingredients?.filter((element, index) => {
+    return ingredients.indexOf(element) === index;
+  });
+
   return orderElement ? (
     <main className={`${styles.main}`}>
       <p className={`${styles.orderNumber} text text_type_digits-default mb-10`}>#{orderElement.number}</p>
@@ -49,7 +53,7 @@ const ProfileOrderDetails = () => {
       {orderElement.status === "pending" && <p className="mb-15 text text_type_main-default">Готовится</p>}
       <h2 className="mb-6 text text_type_main-medium">Состав:</h2>
       <ul className={`${styles.list} ${styles.scroll} custom-scroll`}>
-        {ingredients!.map((el, index) => {
+        {repetitiveIngredients!.map((el, index) => {
           return (
             <li className={`${styles.listElement} mr-6`} key={index}>
               <div className={styles.imgAndName}>
@@ -57,7 +61,9 @@ const ProfileOrderDetails = () => {
                 <p className={`text text_type_main-default ${styles.name}`}>{el!.name}</p>
               </div>
               <div className={styles.price}>
-                <p className="text text_type_digits-default mr-2">{el!.price}</p>
+                <p className="text text_type_digits-default mr-2">
+                  {ingredients!.filter((item) => item == el).length} x {el!.price}
+                </p>
                 <CurrencyIcon type="primary" />
               </div>
             </li>

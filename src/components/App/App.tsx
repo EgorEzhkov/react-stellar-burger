@@ -2,7 +2,7 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../utils/hooks";
 import { getIngredients } from "../../services/actions/ingredientsData";
 import HomePage from "../../pages/HomePage";
 import LoginPage from "../../pages/LoginPage";
@@ -32,9 +32,7 @@ function App() {
     dispatch(getUserData());
   }, [dispatch]);
 
-  // ИСПРАВИТЬ ТИПИЗАЦИЮ
   const ingredientsRequest = useSelector((store) => store.ingredients.ingredientsRequest);
-  // ИСПРАВИТЬ ТИПИЗАЦИЮ
 
   return (
     <div className={styles.app}>
@@ -60,10 +58,7 @@ function App() {
                   <Route path="user" element={<OnlyAuth component={<Profile />} />}></Route>
                   <Route path="orders" element={<OnlyAuth component={<Orders />} />}></Route>
                 </Route>
-                <Route
-                  path="/profile/orders/:id"
-                  element={<OnlyAuth component={<ProfileOrderDetails />} />}
-                ></Route>
+                <Route path="/profile/orders/:id" element={<OnlyAuth component={<ProfileOrderDetails />} />}></Route>
                 <Route path="/feed" element={<FeedPage />}></Route>
                 <Route path="/feed/:id" element={<FeedOrderDetails />} />
                 <Route path="/ingredients/:id" element={<IngredientDetails />}></Route>
