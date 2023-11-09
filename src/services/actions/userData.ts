@@ -127,7 +127,7 @@ export type TUserDataActions =
   | IPostUserDataFailed;
 
 export const getUserData: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: GET_USER_DATA_REQUEST });
     apiGetUser()
       .then((res) => {
@@ -150,7 +150,7 @@ export const getUserData: AppThunk = () => {
 };
 
 export const regUser: AppThunk = (email: string, password: string, name: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: REG_USER_REQUEST });
     apiUserReg(email, password, name)
       .then((res) => {
@@ -177,7 +177,7 @@ export const regUser: AppThunk = (email: string, password: string, name: string)
 };
 
 export const logInUser: AppThunk = (email: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: LOG_IN_USER_REQUEST });
     apiUserLogIn(email, password)
       .then((res) => {
@@ -204,7 +204,7 @@ export const logInUser: AppThunk = (email: string, password: string) => {
 };
 
 export const logOutUser: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: LOG_OUT_USER_REQUEST });
     apiUserLogOut()
       .then((res) => {
@@ -225,7 +225,7 @@ export const logOutUser: AppThunk = () => {
 };
 
 export const postUserData: AppThunk = (login: string, name: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: POST_USER_DATA_REQUEST });
     apiPostUser(login, name)
       .then((res) => {

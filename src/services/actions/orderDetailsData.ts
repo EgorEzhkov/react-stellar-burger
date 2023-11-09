@@ -20,7 +20,7 @@ interface IGetOrderSuccess {
 export type TOrderDetailsDataActions = IGetOrderFailed | IGetOrderRequest | IGetOrderSuccess;
 
 export const getApiOrder: AppThunk = (ingredientsData: ReadonlyArray<TIngredient>) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: GET_ORDER_REQUEST });
     apiOrder(ingredientsData)
       .then((data) => {

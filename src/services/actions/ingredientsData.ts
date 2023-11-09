@@ -21,7 +21,7 @@ interface IGetIngredientSuccess {
 export type TIngredientsDataActions = IGetIngredientFailed | IGetIngredientRequest | IGetIngredientSuccess;
 
 export const getIngredients: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });
